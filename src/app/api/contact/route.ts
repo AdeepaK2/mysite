@@ -1,9 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server'
 import connectDB from '@/lib/db'
 import ContactMessage from '@/models/ContactMessage'
+import { validateApiKey, apiResponses } from '@/lib/auth'
 
 export async function POST(request: NextRequest) {
   try {
+    // Validate API key
+    if (!validateApiKey(request)) {
+      return NextResponse.json(
+        apiResponses.invalidApiKey,
+        { status: apiResponses.invalidApiKey.status }
+      );
+    }
+
     await connectDB()
     
     const body = await request.json()

@@ -56,6 +56,9 @@ export default function ImageUpload({
 
       const response = await fetch('/api/file/upload', {
         method: 'POST',
+        headers: {
+          'x-api-key': process.env.NEXT_PUBLIC_X_API_KEY || '',
+        },
         body: formData
       })
 

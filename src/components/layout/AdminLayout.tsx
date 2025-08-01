@@ -34,11 +34,6 @@ const adminNavItems = [
     icon: FolderOpen
   },
   {
-    title: 'Blog Posts',
-    href: '/admin/blog',
-    icon: PenTool
-  },
-  {
     title: 'Contact Messages',
     href: '/admin/contacts',
     icon: MessageCircle

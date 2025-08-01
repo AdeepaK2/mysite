@@ -1,5 +1,6 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { uploadFileToR2 } from "@/lib/r2";
+import { validateApiKey, apiResponses } from '@/lib/auth';
 
 /**
  ** POST handler - Uploads a file to Cloudflare R2 storage
@@ -10,8 +11,16 @@ import { uploadFileToR2 } from "@/lib/r2";
  * @returns JSON response with upload status
  *          
  */
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
+    // Validate API key
+    if (!validateApiKey(req)) {
+      return NextResponse.json(
+        apiResponses.invalidApiKey,
+        { status: apiResponses.invalidApiKey.status }
+      );
+    }
+
     // Get the form data from the request
     const formData = await req.formData();
     const file = formData.get("file") as File | null;

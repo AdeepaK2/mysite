@@ -53,9 +53,6 @@ export default function Footer() {
               <Link href="/portafolio" className="block text-gray-300 hover:text-cyan-400 transition-colors duration-300 text-sm">
                 Portfolio
               </Link>
-              <Link href="/blog" className="block text-gray-300 hover:text-cyan-400 transition-colors duration-300 text-sm">
-                Blog
-              </Link>
               <Link href="/contact" className="block text-gray-300 hover:text-cyan-400 transition-colors duration-300 text-sm">
                 Contact
               </Link>

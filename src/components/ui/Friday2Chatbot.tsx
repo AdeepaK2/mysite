@@ -24,8 +24,142 @@ export default function Friday2Chatbot() {
   const [isLoading, setIsLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [isMinimized, setIsMinimized] = useState(false)
+  const [showAttentionBubble, setShowAttentionBubble] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+
+  // Function to render structured messages
+  const renderStructuredMessage = (text: string) => {
+    // Check if the message contains structured content
+    if (text.includes('•') || text.includes('-') || text.includes('*')) {
+      const parts = text.split('\n')
+      const elements = []
+      let currentSection = []
+      let isInList = false
+
+      for (let i = 0; i < parts.length; i++) {
+        const part = parts[i].trim()
+        
+        if (!part) {
+          if (currentSection.length > 0) {
+            elements.push(
+              <div key={i} className="mb-2">
+                {currentSection.map((item, idx) => (
+                  <div key={idx}>{item}</div>
+                ))}
+              </div>
+            )
+            currentSection = []
+            isInList = false
+          }
+          continue
+        }
+
+        // Handle list items
+        if (part.startsWith('•') || part.startsWith('-') || part.startsWith('*')) {
+          if (!isInList) {
+            isInList = true
+            if (currentSection.length > 0) {
+              elements.push(
+                <div key={`section-${i}`} className="mb-2">
+                  {currentSection.map((item, idx) => (
+                    <div key={idx}>{item}</div>
+                  ))}
+                </div>
+              )
+              currentSection = []
+            }
+          }
+          
+          const listText = part.substring(1).trim()
+          elements.push(
+            <div key={i} className="flex items-start mb-1 bg-gray-800/30 rounded-md p-2">
+              <span className="text-cyan-400 mr-2 mt-0.5 text-xs">●</span>
+              <span className="flex-1">{listText}</span>
+            </div>
+          )
+        }
+        // Handle headers (text ending with :)
+        else if (part.endsWith(':') && part.length > 1) {
+          if (currentSection.length > 0) {
+            elements.push(
+              <div key={`section-${i}`} className="mb-2">
+                {currentSection.map((item, idx) => (
+                  <div key={idx}>{item}</div>
+                ))}
+              </div>
+            )
+            currentSection = []
+          }
+          
+          elements.push(
+            <div key={i} className="font-bold text-cyan-300 mb-1 mt-3 first:mt-0 border-l-2 border-cyan-400 pl-2 bg-cyan-400/10 rounded-r-md py-1">
+              {part}
+            </div>
+          )
+          isInList = false
+        }
+        // Handle numbered items
+        else if (/^\d+\./.test(part)) {
+          const [number, ...rest] = part.split('.')
+          const listText = rest.join('.').trim()
+          elements.push(
+            <div key={i} className="flex items-start mb-1 bg-gray-800/30 rounded-md p-2">
+              <span className="text-cyan-400 mr-2 mt-0.5 text-xs font-bold">{number}.</span>
+              <span className="flex-1">{listText}</span>
+            </div>
+          )
+          isInList = true
+        }
+        // Regular text
+        else {
+          currentSection.push(
+            <span key={i} className="block mb-1">{part}</span>
+          )
+          isInList = false
+        }
+      }
+
+      // Add remaining section
+      if (currentSection.length > 0) {
+        elements.push(
+          <div key="final" className="mb-0">
+            {currentSection.map((item, idx) => (
+              <div key={idx}>{item}</div>
+            ))}
+          </div>
+        )
+      }
+
+      return elements.length > 0 ? elements : <span>{text}</span>
+    }
+
+    // If no special formatting detected, return as regular text
+    return <span className="whitespace-pre-wrap break-words">{text}</span>
+  }
+
+  // Attention bubble effect
+  useEffect(() => {
+    if (!isOpen) {
+      // Show attention bubble after 3 seconds, then every 15 seconds
+      const initialTimer = setTimeout(() => {
+        setShowAttentionBubble(true)
+        setTimeout(() => setShowAttentionBubble(false), 5000) // Hide after 5 seconds
+      }, 3000)
+
+      const intervalTimer = setInterval(() => {
+        if (!isOpen) {
+          setShowAttentionBubble(true)
+          setTimeout(() => setShowAttentionBubble(false), 5000)
+        }
+      }, 15000)
+
+      return () => {
+        clearTimeout(initialTimer)
+        clearInterval(intervalTimer)
+      }
+    }
+  }, [isOpen])
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -60,6 +194,7 @@ export default function Friday2Chatbot() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'x-api-key': process.env.NEXT_PUBLIC_X_API_KEY || '',
         },
         body: JSON.stringify({ message: inputMessage }),
       })
@@ -100,15 +235,70 @@ export default function Friday2Chatbot() {
 
   return (
     <>
+      {/* Attention-grabbing Comic Bubble */}
+      <AnimatePresence>
+        {showAttentionBubble && !isOpen && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, x: 20 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            exit={{ opacity: 0, scale: 0.8, x: 20 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="fixed bottom-20 right-4 z-40 max-w-64"
+          >
+            <div className="relative">
+              {/* Speech bubble */}
+              <motion.div
+                animate={{ 
+                  y: [0, -5, 0],
+                  rotate: [0, 1, -1, 0]
+                }}
+                transition={{ 
+                  duration: 2, 
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                className="bg-white rounded-2xl p-4 shadow-xl border-2 border-cyan-400 relative"
+              >
+                {/* Bubble tail pointing to chatbot button */}
+                <div className="absolute bottom-0 right-6 w-0 h-0 border-l-8 border-r-8 border-t-12 border-l-transparent border-r-transparent border-t-white transform translate-y-full"></div>
+                <div className="absolute bottom-0 right-6 w-0 h-0 border-l-10 border-r-10 border-t-14 border-l-transparent border-r-transparent border-t-cyan-400 transform translate-y-full z-10"></div>
+                
+                <p className="text-gray-900 text-sm font-bold leading-tight">
+                  👋 Hi! I'm Friday 2.0! Ask me anything about Adeepa!
+                </p>
+                
+                {/* Comic style effects */}
+                <div className="absolute -top-2 -right-2 text-cyan-400 text-xl font-black">✨</div>
+                <div className="absolute -top-1 -left-1 text-blue-400 text-xs font-black">★</div>
+                <div className="absolute -bottom-1 -left-2 text-cyan-500 text-xs font-black">💬</div>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Chat Toggle Button */}
       <motion.button
-        onClick={() => setIsOpen(true)}
+        onClick={() => {
+          setIsOpen(true)
+          setShowAttentionBubble(false)
+        }}
         className={`fixed bottom-4 right-4 z-50 ${isOpen ? 'hidden' : 'flex'} items-center justify-center w-14 h-14 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300`}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         initial={{ opacity: 0, y: 100 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 0.5 }}
+        animate={{ 
+          opacity: 1, 
+          y: 0,
+          boxShadow: showAttentionBubble 
+            ? ["0 10px 25px rgba(34, 197, 255, 0.3)", "0 15px 35px rgba(34, 197, 255, 0.5)", "0 10px 25px rgba(34, 197, 255, 0.3)"]
+            : "0 10px 25px rgba(0, 0, 0, 0.3)"
+        }}
+        transition={{ 
+          delay: 1, 
+          duration: 0.5,
+          boxShadow: { duration: 2, repeat: showAttentionBubble ? Infinity : 0 }
+        }}
       >
         <img 
           src="/image/friday.png" 
@@ -227,7 +417,13 @@ export default function Friday2Chatbot() {
                             ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white'
                             : 'bg-gray-700/50 text-gray-100 border border-gray-600/50'
                         }`}>
-                          <p className="text-sm leading-relaxed whitespace-pre-wrap break-words">{message.text}</p>
+                          {message.isUser ? (
+                            <p className="text-sm leading-relaxed whitespace-pre-wrap break-words">{message.text}</p>
+                          ) : (
+                            <div className="text-sm leading-relaxed">
+                              {renderStructuredMessage(message.text)}
+                            </div>
+                          )}
                           <p className="text-xs opacity-70 mt-1">
                             {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                           </p>

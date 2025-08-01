@@ -125,21 +125,32 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll to next section button */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 0.6 }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
       >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="flex flex-col items-center text-white/60"
+        <motion.button
+          onClick={() => {
+            const nextSection = document.querySelector('.projects-section')
+            if (nextSection) {
+              nextSection.scrollIntoView({ behavior: 'smooth' })
+            }
+          }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="group flex flex-col items-center justify-center bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 hover:border-cyan-500/50 rounded-full p-3 transition-all duration-300 backdrop-blur-sm"
         >
-          <span className="text-sm uppercase tracking-wider mb-2">Scroll Down</span>
-          <ChevronDown className="w-6 h-6" />
-        </motion.div>
+          <motion.div
+            animate={{ y: [0, 4, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="flex flex-col items-center text-cyan-400 group-hover:text-cyan-300"
+          >
+            <ChevronDown className="w-5 h-5" />
+          </motion.div>
+        </motion.button>
       </motion.div>
 
       {/* Floating comic elements */}

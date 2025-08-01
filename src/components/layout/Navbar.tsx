@@ -8,7 +8,6 @@ import { Menu, X, User, FileText, Mail } from 'lucide-react'
 const navigationItems = [
   { name: 'About', href: '/about', icon: User },
   { name: 'Portfolio', href: '/portafolio', icon: FileText },
-  { name: 'Blog', href: '/blog', icon: User },
   { name: 'Contact', href: '/contact', icon: Mail },
 ]
 

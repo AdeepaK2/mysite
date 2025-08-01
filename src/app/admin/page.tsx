@@ -19,7 +19,6 @@ import AdminLayout from '@/components/layout/AdminLayout'
 
 interface Stats {
   totalProjects: number
-  totalBlogs: number
   featuredProjects: number
   recentActivity: number
 }
@@ -27,7 +26,7 @@ interface Stats {
 interface RecentItem {
   id: string
   title: string
-  type: 'project' | 'blog'
+  type: 'project'
   status: string
   updatedAt: string
 }
@@ -37,7 +36,6 @@ export default function AdminDashboard() {
   const router = useRouter()
   const [stats, setStats] = useState<Stats>({
     totalProjects: 0,
-    totalBlogs: 0,
     featuredProjects: 0,
     recentActivity: 0
   })
@@ -58,23 +56,17 @@ export default function AdminDashboard() {
       // Fetch projects
       const projectsRes = await fetch('/api/projects')
       const projectsData = await projectsRes.json()
-      
-      // Fetch blogs
-      const blogsRes = await fetch('/api/blog')
-      const blogsData = await blogsRes.json()
 
-      if (projectsData.success && blogsData.success) {
+      if (projectsData.success) {
         const projects = projectsData.projects || []
-        const blogs = blogsData.posts || []
 
         setStats({
           totalProjects: projects.length,
-          totalBlogs: blogs.length,
           featuredProjects: projects.filter((p: any) => p.featured).length,
-          recentActivity: projects.length + blogs.length
+          recentActivity: projects.length
         })
 
-        // Combine and sort recent items
+        // Get recent projects
         const allItems = [
           ...projects.map((p: any) => ({
             id: p._id,
@@ -82,13 +74,6 @@ export default function AdminDashboard() {
             type: 'project' as const,
             status: p.status,
             updatedAt: p.updatedAt || p.createdAt
-          })),
-          ...blogs.map((b: any) => ({
-            id: b._id,
-            title: b.title,
-            type: 'blog' as const,
-            status: b.published ? 'published' : 'draft',
-            updatedAt: b.updatedAt || b.createdAt
           }))
         ].sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
 
@@ -122,14 +107,6 @@ export default function AdminDashboard() {
       color: 'from-blue-500 to-blue-600',
       change: '+12%',
       link: '/admin/projects'
-    },
-    {
-      title: 'Blog Posts',
-      value: stats.totalBlogs,
-      icon: PenTool,
-      color: 'from-purple-500 to-purple-600',
-      change: '+8%',
-      link: '/admin/blog'
     },
     {
       title: 'Featured Projects',
@@ -227,21 +204,6 @@ export default function AdminDashboard() {
                 </motion.div>
               </Link>
 
-              <Link href="/admin/blog">
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  className="flex items-center space-x-3 p-4 bg-gray-800/50 rounded-lg hover:bg-gray-700/50 transition-colors cursor-pointer"
-                >
-                  <div className="p-2 bg-purple-500/20 rounded-lg">
-                    <PenTool className="w-5 h-5 text-purple-400" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-white">Write Blog Post</h3>
-                    <p className="text-gray-400 text-sm">Share your thoughts and insights</p>
-                  </div>
-                </motion.div>
-              </Link>
-
               <Link href="/">
                 <motion.div
                   whileHover={{ scale: 1.02 }}
@@ -279,21 +241,13 @@ export default function AdminDashboard() {
                     className="flex items-center justify-between p-3 bg-gray-800/30 rounded-lg"
                   >
                     <div className="flex items-center space-x-3">
-                      <div className={`p-2 rounded-lg ${
-                        item.type === 'project' 
-                          ? 'bg-blue-500/20 text-blue-400' 
-                          : 'bg-purple-500/20 text-purple-400'
-                      }`}>
-                        {item.type === 'project' ? (
-                          <FolderOpen className="w-4 h-4" />
-                        ) : (
-                          <PenTool className="w-4 h-4" />
-                        )}
+                      <div className="p-2 rounded-lg bg-blue-500/20 text-blue-400">
+                        <FolderOpen className="w-4 h-4" />
                       </div>
                       <div>
                         <h3 className="font-medium text-white text-sm">{item.title}</h3>
                         <p className="text-gray-400 text-xs">
-                          {item.type === 'project' ? 'Project' : 'Blog Post'} • {item.status}
+                          Project • {item.status}
                         </p>
                       </div>
                     </div>

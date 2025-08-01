@@ -43,7 +43,11 @@ export default function Portfolio() {
   const fetchProjects = async () => {
     try {
       setIsLoading(true)
-      const response = await fetch('/api/projects')
+      const response = await fetch('/api/projects', {
+        headers: {
+          'x-api-key': process.env.NEXT_PUBLIC_X_API_KEY || '',
+        },
+      })
       const data = await response.json()
       
       if (data.success) {

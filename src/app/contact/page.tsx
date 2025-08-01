@@ -44,6 +44,7 @@ export default function Contact() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'x-api-key': process.env.NEXT_PUBLIC_X_API_KEY || '',
         },
         body: JSON.stringify(formData),
       })

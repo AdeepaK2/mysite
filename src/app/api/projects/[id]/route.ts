@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import connect from '@/lib/db'
 import Project from '@/models/Project'
+import { validateApiKey, apiResponses } from '@/lib/auth'
 
 // GET - Get single project by ID
 export async function GET(
@@ -8,6 +9,14 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
+    // Validate API key
+    if (!validateApiKey(req)) {
+      return NextResponse.json(
+        apiResponses.invalidApiKey,
+        { status: apiResponses.invalidApiKey.status }
+      );
+    }
+
     await connect()
     const project = await Project.findById(params.id)
     
@@ -37,6 +46,21 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
+    // Validate API key
+    if (!validateApiKey(req)) {
+      return NextResponse.json(
+        apiResponses.invalidApiKey,
+        { status: apiResponses.invalidApiKey.status }
+      );
+    }
+    // Validate API key
+    if (!validateApiKey(req)) {
+      return NextResponse.json(
+        apiResponses.invalidApiKey,
+        { status: apiResponses.invalidApiKey.status }
+      );
+    }
+
     await connect()
     const body = await req.json()
     
@@ -102,6 +126,13 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
+    // Validate API key
+    if (!validateApiKey(req)) {
+      return NextResponse.json(
+        apiResponses.invalidApiKey,
+        { status: apiResponses.invalidApiKey.status }
+      );
+    }
     await connect()
     const project = await Project.findByIdAndDelete(params.id)
     

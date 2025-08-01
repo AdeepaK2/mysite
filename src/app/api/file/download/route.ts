@@ -43,6 +43,8 @@ async function optimizeImage(buffer: Buffer, size: string, contentType?: string)
 export async function GET(req: NextRequest) {
 
   try {
+    // File download is public - no API key validation needed for images
+
     // Extract query parameters
     const { searchParams } = new URL(req.url);
     const fileName = searchParams.get("file");

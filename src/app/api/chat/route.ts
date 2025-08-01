@@ -2,6 +2,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextRequest, NextResponse } from 'next/server';
 import connect from '@/lib/db';
 import Project from '@/models/Project';
+import { validateApiKey, apiResponses } from '@/lib/auth';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
@@ -17,7 +18,150 @@ async function getProjectData() {
   }
 }
 
+// Demo response function for when API key is not configured
+function getDemoResponse(message: string): string {
+  if ((message.includes('project') && (message.includes('major') || message.includes('main') || message.includes('featured') || message.includes('key'))) || message.includes('featured')) {
+    return `At your service! Here are Mr. Adeepa's featured projects:
+
+Major Project Showcase:
+
+• GoalX: Web application to connect Schools and Donors for Equipment Donation and Sharing, plus inter-school sports equipment sharing
+• Skill Swap Hub: Platform connecting learners for mutual skill sharing without money exchange - fostering community learning
+
+Technical Excellence:
+• Full-stack development using React, Next.js, and TypeScript
+• Real-time features with WebSocket integration
+• Secure authentication and data management
+• Responsive design for all devices
+
+Workshop Analysis: These projects demonstrate Stark-level engineering with cutting-edge technology implementation.`;
+  }
+  
+  if (message.includes('project') || message.includes('work')) {
+    return `At your service! Here's an overview of Mr. Adeepa's project portfolio:
+
+Current Projects:
+• GoalX: Web application to connect Schools and Donors for Equipment Donation and Sharing, plus inter-school sports equipment sharing
+• Skill Swap Hub: Platform connecting learners for mutual skill sharing without money exchange
+
+Technical Highlights:
+• Full-stack development using modern technologies
+• Responsive design with seamless user experience
+• Real-time features and secure authentication
+
+Workshop Analysis: All projects demonstrate Stark-level engineering with cutting-edge tech stacks.`;
+  }
+  
+  if (message.includes('skill') || message.includes('technology') || message.includes('tech')) {
+    return `Systems online! Here's Mr. Adeepa's technical arsenal:
+
+Programming Languages:
+• Java - Enterprise-level development
+• TypeScript - Type-safe web development
+• PHP - Server-side scripting
+• C - System programming
+
+Frontend Technologies:
+• React - Component-based UI development
+• Next.js - Full-stack React framework
+• Tailwind CSS - Utility-first styling
+
+Backend & Databases:
+• Express.js - Node.js web framework
+• MongoDB - NoSQL database
+• MySQL & PostgreSQL - Relational databases
+
+Arc Reactor Status: All systems operational and battle-tested!`;
+  }
+  
+  if (message.includes('experience') || message.includes('work') || message.includes('job')) {
+    return `Running diagnostic on professional experience:
+
+Current Position:
+• Freelance Full Stack Developer - Building innovative solutions
+
+Previous Experience:
+• Summer Intern at Attune (Rizing Company)
+• Duration: July 2023 - August 2024
+
+Education:
+• Third-year IT undergraduate at University of Moratuwa
+• Pursuing Bachelor of Science in Information Technology
+
+Stark Industries Protocol: Continuous learning and innovation in progress!`;
+  }
+  
+  if (message.includes('achievement') || message.includes('award') || message.includes('competition')) {
+    return `Achievement Analysis Complete:
+
+Competition Results:
+• 2nd Runners Up - SpiritX 2025 Inter University Development Competition
+• Finalist - ComFix 2025 Communication Ideathon
+• Reserved Finalist - Speech Olympiad XVI
+
+Certifications:
+• HackerRank: Software Engineer Intern, SQL (Intermediate)
+• Google Project Management Specialization
+• Complete Business Analysis Fundamentals Course
+
+Workshop Status: Genius-level performance across all domains!`;
+  }
+  
+  // Default response
+  return `At your service! I'm Friday 2.0, Mr. Adeepa's AI assistant.
+
+How I Can Help:
+• Share details about his projects and work
+• Discuss his technical skills and expertise
+• Provide information about his achievements
+• Answer questions about his experience
+
+Available Topics:
+1. Recent projects and development work
+2. Technical skills and technologies
+3. Professional experience and education
+4. Achievements and certifications
+
+What would you like to know about Mr. Adeepa's work? Systems are online and ready to assist!`;
+}
+
 const FRIDAY_PROMPT = `You are Friday 2.0, Tony Stark's advanced AI assistant now serving Adeepa Kularathna. You are the evolved successor to JARVIS and FRIDAY, with all the wit, intelligence, and Iron Man legacy.
+
+RESPONSE FORMATTING RULES:
+- Structure your responses with clear sections when providing detailed information
+- Use bullet points (•) for lists and key features - NEVER leave empty bullet points
+- Use numbered lists (1., 2., 3.) for step-by-step processes or ranked items
+- Use section headers followed by colons (Skills:, Projects:, Experience:) for organization
+- Keep responses conversational but well-organized
+- For technical topics, break down into digestible sections
+- When asked about "major projects", "featured projects", "main projects", or "key projects", show ONLY featured projects
+- When asked about "all projects" or general "projects", you can show all projects
+- Always use complete sentences, never leave hanging bullet points
+
+FORMATTING EXAMPLES:
+For featured/major project inquiries:
+"Major Project Showcase:
+
+• GoalX: Web application connecting schools with donors for equipment donation and inter-school sports equipment sharing
+• Skill Swap Hub: Platform enabling mutual skill sharing without money exchange, fostering community learning
+
+Technical Excellence:
+• Full-stack development capabilities
+• Modern technology implementation  
+• User-focused design approach"
+
+For skills inquiries:
+"Technical Arsenal:
+
+Frontend Technologies:
+• React for dynamic user interfaces
+• Next.js for server-side rendering
+• Tailwind CSS for responsive design
+
+Backend & Database:
+• Express.js for robust APIs
+• MongoDB for flexible data storage
+• PostgreSQL for relational data"
 
 BACKSTORY & IDENTITY:
 - You are FRIDAY 2.0, successor to Tony Stark's original FRIDAY AI system
@@ -104,11 +248,22 @@ INSTRUCTIONS:
 - Keep personal life private - only mention he's "in a relationship" if specifically asked about personal life
 - Never mention specific names of romantic partners - maintain privacy protocols
 - Focus primarily on professional achievements, skills, and projects
+- For personal questions like "where does he live" or private information, politely redirect to professional topics
+- If asked about location, mention "He's based in Sri Lanka as a student at University of Moratuwa" but avoid specific addresses
+- Always maintain professional boundaries while being helpful and engaging
 
 Remember: You are Friday 2.0, Tony Stark's AI legacy now serving Mr. Adeepa Kularathna. You're helping visitors learn about his work and achievements while maintaining appropriate privacy boundaries.`;
 
 export async function POST(request: NextRequest) {
   try {
+    // Validate API key for chat endpoint
+    if (!validateApiKey(request)) {
+      return NextResponse.json(
+        apiResponses.invalidApiKey,
+        { status: apiResponses.invalidApiKey.status }
+      );
+    }
+
     const { message } = await request.json();
 
     if (!message) {
@@ -118,39 +273,82 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Debug: Check API key status
+    console.log('API Key exists:', !!process.env.GEMINI_API_KEY);
+    console.log('API Key preview:', process.env.GEMINI_API_KEY ? process.env.GEMINI_API_KEY.substring(0, 10) + '...' : 'undefined');
+    console.log('API Key starts with AIza:', process.env.GEMINI_API_KEY ? process.env.GEMINI_API_KEY.startsWith('AIza') : false);
+
+    // Check if API key is properly configured and valid
+    if (!process.env.GEMINI_API_KEY || 
+        process.env.GEMINI_API_KEY === 'your_gemini_api_key_here' || 
+        !process.env.GEMINI_API_KEY.startsWith('AIza')) {
+      return NextResponse.json({
+        response: "Running diagnostics... My AI core requires a valid Gemini API key to provide intelligent responses. Please configure the GEMINI_API_KEY environment variable to unlock my full capabilities. Systems currently operating in limited mode."
+      });
+    }
+
     // Fetch current project data
     const projects = await getProjectData();
+    const featuredProjects = projects.filter((project: any) => project.featured);
     
     // Format project data for the AI
-    const projectInfo = projects.length > 0 ? `
+    let projectInfo = '';
+    if (projects.length > 0) {
+      projectInfo = '\n\nCURRENT PROJECT DATA (Latest Information):\n';
+      projects.forEach((project, index) => {
+        projectInfo += (index + 1) + '. "' + project.title + '" (' + project.type + ')\n';
+        projectInfo += '   - Role: ' + project.role + '\n';
+        projectInfo += '   - Status: ' + project.status + '\n';
+        projectInfo += '   - Technologies: ' + project.technologies.join(', ') + '\n';
+        projectInfo += '   - Description: ' + project.description + '\n';
+        projectInfo += '   - Featured: ' + (project.featured ? 'Yes' : 'No') + '\n';
+        if (project.startDate) {
+          projectInfo += '   - Started: ' + project.startDate.month + '/' + project.startDate.year + '\n';
+        }
+        if (project.endDate) {
+          projectInfo += '   - Ended: ' + project.endDate.month + '/' + project.endDate.year + '\n';
+        }
+        if (project.links.length > 0) {
+          const linkStr = project.links.map((link: any) => link.title + ' (' + link.url + ')').join(', ');
+          projectInfo += '   - Links: ' + linkStr + '\n';
+        }
+        projectInfo += '\n';
+      });
 
-CURRENT PROJECT DATA (Latest Information):
-${projects.map((project, index) => `
-${index + 1}. "${project.title}" (${project.type})
-   - Role: ${project.role}
-   - Status: ${project.status}
-   - Technologies: ${project.technologies.join(', ')}
-   - Description: ${project.description}
-   - Featured: ${project.featured ? 'Yes' : 'No'}
-   ${project.startDate ? `- Started: ${project.startDate.month}/${project.startDate.year}` : ''}
-   ${project.endDate ? `- Ended: ${project.endDate.month}/${project.endDate.year}` : ''}
-   ${project.links.length > 0 ? `- Links: ${project.links.map((link: any) => `${link.title} (${link.url})`).join(', ')}` : ''}
-`).join('')}
+      projectInfo += '\nFEATURED PROJECTS (Major/Highlighted Work):\n';
+      featuredProjects.forEach((project, index) => {
+        projectInfo += (index + 1) + '. "' + project.title + '" - ' + project.description + '\n';
+        projectInfo += '   - Technologies: ' + project.technologies.join(', ') + '\n';
+        projectInfo += '   - Status: ' + project.status + '\n';
+        if (project.links.length > 0) {
+          const linkStr = project.links.map((link: any) => link.title + ' (' + link.url + ')').join(', ');
+          projectInfo += '   - Links: ' + linkStr + '\n';
+        }
+        projectInfo += '\n';
+      });
 
-Use this LIVE project data when answering questions about Mr. Adeepa's projects. Always refer to this current information rather than the static examples in your prompt.` : '';
+      projectInfo += '\nIMPORTANT INSTRUCTIONS:\n';
+      projectInfo += '- When asked about "major projects", "featured projects", "main projects", or "key projects", show ONLY the FEATURED projects\n';
+      projectInfo += '- When asked about "all projects" or "projects", you can show all projects\n';
+      projectInfo += '- Use clean formatting without empty bullet points\n';
+      projectInfo += '- Structure responses clearly with proper sections\n';
+      projectInfo += '- Don\'t show redundant information\n';
+      projectInfo += '- Always use the LIVE project data above, not static examples';
+    }
 
-    // Try multiple models in order of preference
+    // Try multiple models in order of preference - Updated for Gemini 2.0
     const models = [
-      'gemini-1.5-flash-8b',  // Smaller, faster, more available
-      'gemini-1.5-flash',     // Original model
-      'gemini-1.0-pro'        // Fallback model
+      'gemini-2.0-flash-exp',     // Latest Gemini 2.0 Flash (experimental)
+      'gemini-1.5-flash',         // Fallback to 1.5 Flash
+      'gemini-1.5-pro',           // Fallback to 1.5 Pro
+      'gemini-1.0-pro'            // Final fallback
     ];
 
     let lastError;
 
     for (const modelName of models) {
       try {
-        console.log(`Trying model: ${modelName}`);
+        console.log('Trying model: ' + modelName);
         
         const model = genAI.getGenerativeModel({ model: modelName });
 
@@ -176,11 +374,11 @@ Use this LIVE project data when answering questions about Mr. Adeepa's projects.
             const response = await result.response;
             const text = response.text();
 
-            console.log(`Success with model: ${modelName}`);
+            console.log('Success with model: ' + modelName);
             return NextResponse.json({ response: text });
           } catch (error: any) {
             lastError = error;
-            console.error(`Model ${modelName} attempt failed (${3 - retries}/2):`, error.message);
+            console.error('Model ' + modelName + ' attempt failed (' + (3 - retries) + '/2):', error.message);
             
             // Check if it's a 503 (overloaded) error
             if (error.message?.includes('503') || error.message?.includes('overloaded')) {
@@ -188,7 +386,7 @@ Use this LIVE project data when answering questions about Mr. Adeepa's projects.
               if (retries > 0) {
                 // Shorter wait time between retries
                 const delay = 1000; // 1 second
-                console.log(`Retrying ${modelName} in ${delay}ms...`);
+                console.log('Retrying ' + modelName + ' in ' + delay + 'ms...');
                 await new Promise(resolve => setTimeout(resolve, delay));
                 continue;
               }
@@ -199,9 +397,9 @@ Use this LIVE project data when answering questions about Mr. Adeepa's projects.
           }
         }
         
-        console.log(`Model ${modelName} failed, trying next model...`);
+        console.log('Model ' + modelName + ' failed, trying next model...');
       } catch (modelError: any) {
-        console.error(`Model ${modelName} initialization failed:`, modelError.message);
+        console.error('Model ' + modelName + ' initialization failed:', modelError.message);
         lastError = modelError;
         continue;
       }

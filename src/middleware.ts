@@ -1,8 +1,30 @@
 import { withAuth } from "next-auth/middleware"
+import { NextResponse } from 'next/server'
+import { validateApiKey, isAdminRoute, requiresApiKey, apiResponses } from './lib/auth'
 
 export default withAuth(
   function middleware(req) {
-    // Add any additional middleware logic here
+    const { pathname } = req.nextUrl
+    
+    // Handle API routes
+    if (pathname.startsWith('/api')) {
+      // Admin routes use NextAuth, skip API key validation
+      if (isAdminRoute(pathname)) {
+        return NextResponse.next()
+      }
+      
+      // Other API routes require X-API-KEY
+      if (requiresApiKey(pathname)) {
+        if (!validateApiKey(req)) {
+          return NextResponse.json(
+            apiResponses.unauthorized,
+            { status: apiResponses.unauthorized.status }
+          )
+        }
+      }
+    }
+    
+    return NextResponse.next()
   },
   {
     callbacks: {
@@ -23,5 +45,5 @@ export default withAuth(
 )
 
 export const config = {
-  matcher: ["/admin/:path*"]
+  matcher: ["/admin/:path*", "/api/:path*"]
 }
