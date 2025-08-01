@@ -21,15 +21,15 @@ export default function HeroSection() {
       </div>
 
       {/* Main content */}
-      <div className="container mx-auto px-4 z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 z-10 w-full max-w-7xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           
           {/* Left side - Text content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-center lg:text-left"
+            className="text-center lg:text-left w-full overflow-hidden"
           >
         
 
@@ -38,10 +38,10 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-center lg:text-left"
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-center lg:text-left leading-tight break-words"
             >
-              <span className="text-white block mb-2">Hello, I'm</span>
-              <div className="block">
+              <span className="text-white block mb-1 sm:mb-2">Hello, I'm</span>
+              <div className="block break-words">
                 <span className="text-white">Adeepa</span>
                 <motion.span 
                   className="text-red-500"
@@ -65,13 +65,13 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.6 }}
-              className="mb-8"
+              className="mb-6 sm:mb-8"
             >
-              <p className="text-xl md:text-2xl text-gray-300 mb-2">
+              <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-2">
                 Developer and Designer
               </p>
               <motion.p 
-                className="text-base md:text-lg text-cyan-400 mb-4 font-medium"
+                className="text-sm sm:text-base md:text-lg text-cyan-400 mb-3 sm:mb-4 font-medium"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.9, duration: 0.6 }}
@@ -79,7 +79,7 @@ export default function HeroSection() {
                 🌟 Differently Abled • Accessibility Champion
               </motion.p>
               <motion.p 
-                className="text-sm md:text-base text-gray-400 max-w-lg mx-auto lg:mx-0"
+                className="text-xs sm:text-sm md:text-base text-gray-400 max-w-lg mx-auto lg:mx-0 px-2 sm:px-0"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.1, duration: 0.6 }}

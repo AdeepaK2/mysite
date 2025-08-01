@@ -674,9 +674,9 @@ export default function Home() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.5, duration: 0.8 }}
-                  className="flex justify-center"
+                  className="flex justify-center overflow-hidden"
                 >
-                  <div className="relative">
+                  <div className="relative max-w-xs md:max-w-none">
                     {/* Comic frame effect */}
                     <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl blur-xl"></div>
                     
@@ -684,7 +684,7 @@ export default function Home() {
                     <motion.div
                       whileHover={{ scale: 1.05, rotate: 2 }}
                       transition={{ duration: 0.3 }}
-                      className="relative comic-panel w-64 h-80 bg-gradient-to-br from-purple-900/80 to-blue-900/80 border-2 border-purple-500/50 overflow-hidden"
+                      className="relative comic-panel w-56 h-72 md:w-64 md:h-80 bg-gradient-to-br from-purple-900/80 to-blue-900/80 border-2 border-purple-500/50 overflow-hidden"
                     >
                       {/* Comic action lines */}
                       <div className="absolute inset-0 overflow-hidden rounded-lg z-10">
@@ -723,7 +723,7 @@ export default function Home() {
 
                     {/* Periodic Comic Speech Bubble */}
                     <motion.div
-                      className="absolute -top-12 -left-16 z-20"
+                      className="absolute -top-8 -left-4 md:-top-12 md:-left-16 z-20"
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ 
                         opacity: [0, 0, 1, 1, 1, 1, 1, 0, 0],
@@ -737,20 +737,20 @@ export default function Home() {
                         ease: "easeInOut"
                       }}
                     >
-                      <div className="relative bg-white rounded-3xl p-4 shadow-2xl max-w-64 border-2 border-violet-400">
+                      <div className="relative bg-white rounded-2xl md:rounded-3xl p-3 md:p-4 shadow-2xl max-w-48 md:max-w-64 border-2 border-violet-400">
                         {/* Bubble tail pointing to character */}
-                        <div className="absolute bottom-0 right-12 w-0 h-0 border-l-8 border-r-8 border-t-12 border-l-transparent border-r-transparent border-t-white transform translate-y-full"></div>
-                        <div className="absolute bottom-0 right-12 w-0 h-0 border-l-10 border-r-10 border-t-14 border-l-transparent border-r-transparent border-t-violet-400 transform translate-y-full z-10"></div>
+                        <div className="absolute bottom-0 right-8 md:right-12 w-0 h-0 border-l-6 border-r-6 border-t-8 md:border-l-8 md:border-r-8 md:border-t-12 border-l-transparent border-r-transparent border-t-white transform translate-y-full"></div>
+                        <div className="absolute bottom-0 right-8 md:right-12 w-0 h-0 border-l-8 border-r-8 border-t-10 md:border-l-10 md:border-r-10 md:border-t-14 border-l-transparent border-r-transparent border-t-violet-400 transform translate-y-full z-10"></div>
                         
-                        <p className="text-gray-900 text-sm font-bold leading-tight text-center">
+                        <p className="text-gray-900 text-xs md:text-sm font-bold leading-tight text-center">
                           "I can definitely do this all day!"
                         </p>
                         
                         {/* Comic style emphasis */}
-                        <div className="absolute -top-2 -right-2 text-orange-400 text-2xl font-black">💪</div>
+                        <div className="absolute -top-1 -right-1 md:-top-2 md:-right-2 text-orange-400 text-lg md:text-2xl font-black">💪</div>
                         {/* Additional comic effects */}
                         <div className="absolute -top-1 -left-1 text-violet-400 text-xs font-black">★</div>
-                        <div className="absolute -bottom-1 -left-2 text-rose-400 text-xs font-black">✦</div>
+                        <div className="absolute -bottom-1 -left-1 md:-left-2 text-rose-400 text-xs font-black">✦</div>
                       </div>
                     </motion.div>
 
@@ -765,7 +765,7 @@ export default function Home() {
                         repeat: Infinity,
                         ease: "easeInOut"
                       }}
-                      className="absolute -top-4 -left-4 text-2xl"
+                      className="absolute -top-2 -left-2 md:-top-4 md:-left-4 text-xl md:text-2xl"
                     >
                       ⭐
                     </motion.div>
@@ -781,7 +781,7 @@ export default function Home() {
                         ease: "easeInOut",
                         delay: 1
                       }}
-                      className="absolute -bottom-4 -right-4 text-2xl"
+                      className="absolute -bottom-2 -right-2 md:-bottom-4 md:-right-4 text-xl md:text-2xl"
                     >
                       🎨
                     </motion.div>
