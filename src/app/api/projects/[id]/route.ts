@@ -6,7 +6,7 @@ import { validateApiKey, apiResponses } from '@/lib/auth'
 // GET - Get single project by ID
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // Validate API key
@@ -17,8 +17,11 @@ export async function GET(
       );
     }
 
+    // Await the params since it's now a Promise in Next.js 15+
+    const resolvedParams = await params;
+    
     await connect()
-    const project = await Project.findById(params.id)
+    const project = await Project.findById(resolvedParams.id)
     
     if (!project) {
       return NextResponse.json(
@@ -43,7 +46,7 @@ export async function GET(
 // PUT - Update project by ID
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // Validate API key
@@ -60,6 +63,9 @@ export async function PUT(
         { status: apiResponses.invalidApiKey.status }
       );
     }
+
+    // Await the params since it's now a Promise in Next.js 15+
+    const resolvedParams = await params;
 
     await connect()
     const body = await req.json()
@@ -95,7 +101,7 @@ export async function PUT(
     }
     
     const project = await Project.findByIdAndUpdate(
-      params.id,
+      resolvedParams.id,
       body,
       { new: true, runValidators: true }
     )
@@ -123,7 +129,7 @@ export async function PUT(
 // DELETE - Delete project by ID
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // Validate API key
@@ -133,8 +139,12 @@ export async function DELETE(
         { status: apiResponses.invalidApiKey.status }
       );
     }
+    
+    // Await the params since it's now a Promise in Next.js 15+
+    const resolvedParams = await params;
+    
     await connect()
-    const project = await Project.findByIdAndDelete(params.id)
+    const project = await Project.findByIdAndDelete(resolvedParams.id)
     
     if (!project) {
       return NextResponse.json(

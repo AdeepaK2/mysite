@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { 
   FolderOpen, 
-  PenTool, 
   Eye, 
   TrendingUp,
   Star,

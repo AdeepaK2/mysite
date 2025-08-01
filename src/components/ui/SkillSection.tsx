@@ -13,7 +13,6 @@ import {
   SiMongodb,
   SiMysql,
   SiPostgresql,
-  SiMicrosoftsqlserver,
   SiPostman,
   SiJest,
   SiFigma,

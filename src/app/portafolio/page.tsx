@@ -489,14 +489,6 @@ export default function Portfolio() {
               >
                 About Me
               </motion.a>
-              <motion.a
-                href="/blog"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-6 py-2 border-2 border-blue-500 text-blue-400 hover:bg-blue-500/20 rounded-lg font-semibold transition-all duration-300"
-              >
-                My Blog
-              </motion.a>
             </div>
           </motion.div>
         )}

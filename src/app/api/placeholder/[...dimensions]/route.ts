@@ -2,11 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { dimensions: string[] } }
+  { params }: { params: Promise<{ dimensions: string[] }> }
 ) {
   try {
+    // Await the params since it's now a Promise in Next.js 15+
+    const resolvedParams = await params;
+    
     // Parse dimensions from URL path
-    const [width = '400', height = '300'] = params.dimensions || [];
+    const [width = '400', height = '300'] = resolvedParams.dimensions || [];
     const w = Math.min(parseInt(width), 1200); // Max width 1200px
     const h = Math.min(parseInt(height), 800);  // Max height 800px
 
