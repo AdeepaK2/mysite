@@ -1,0 +1,745 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@300;400;700&family=Orbitron:wght@400;700;900&display=swap');
+@import "tailwindcss";
+
+/* Marvel-themed CSS Variables */
+:root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --marvel-red: #ED1D24;
+  --marvel-blue: #0078D4;
+  --marvel-gold: #FFD700;
+  --comic-yellow: #FFEB3B;
+  --comic-black: #1a1a1a;
+  --comic-white: #ffffff;
+  --shadow-color: rgba(237, 29, 36, 0.3);
+}
+
+/* Utility classes */
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Base styles */
+body {
+  font-family: var(--font-comic-neue);
+  background: 
+    /* Deep space nebula effects */
+    radial-gradient(ellipse at 20% 50%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(14, 165, 233, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 40% 80%, rgba(34, 197, 255, 0.2) 0%, transparent 50%),
+    /* Base cosmic background */
+    linear-gradient(135deg, #1a1a2e 0%, #1e3a8a 25%, #1e40af 50%, #1d4ed8 75%, #2563eb 100%);
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Cosmic stars overlay */
+/* Animated star field */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, #ffffff, transparent),
+    radial-gradient(2px 2px at 40px 70px, #87ceeb, transparent),
+    radial-gradient(1px 1px at 90px 40px, #ffffff, transparent),
+    radial-gradient(1px 1px at 130px 80px, #87ceeb, transparent),
+    radial-gradient(2px 2px at 160px 30px, #ffffff, transparent);
+  background-repeat: repeat;
+  background-size: 200px 100px;
+  animation: twinkle 20s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Cosmic nebula effects */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(ellipse at 10% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 40%),
+    radial-gradient(ellipse at 80% 80%, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 10%, rgba(34, 197, 255, 0.06) 0%, transparent 40%),
+    radial-gradient(ellipse at 30% 70%, rgba(59, 130, 246, 0.05) 0%, transparent 35%);
+  animation: drift 60s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Bangers', cursive;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.logo-font {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+}
+
+/* Marvel-themed components */
+.comic-panel {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 
+    0 0 20px var(--shadow-color),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.comic-panel::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--marvel-red), var(--marvel-blue), var(--marvel-gold));
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0.7;
+}
+
+.speech-bubble {
+  background: white;
+  color: black;
+  padding: 16px;
+  border-radius: 24px;
+  border: 3px solid var(--comic-black);
+  position: relative;
+}
+
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 30px;
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 15px solid white;
+}
+
+.action-text {
+  font-family: 'Bangers', cursive;
+  font-size: 2rem;
+  color: var(--marvel-red);
+  text-shadow: 
+    2px 2px 0px var(--comic-black),
+    4px 4px 0px rgba(0,0,0,0.3);
+  transform: rotate(-5deg);
+}
+
+.hero-button {
+  padding: 16px 32px;
+  background: linear-gradient(to right, #dc2626, #b91c1c);
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  border: 3px solid var(--marvel-red);
+  box-shadow: 
+    0 4px 15px rgba(237, 29, 36, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.hero-button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(to right, #b91c1c, #991b1b);
+  box-shadow: 
+    0 6px 20px rgba(237, 29, 36, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.marvel-gradient {
+  background: linear-gradient(135deg, var(--marvel-red) 0%, var(--marvel-blue) 50%, var(--marvel-gold) 100%);
+}
+
+.comic-dots {
+  background-image: radial-gradient(circle, var(--marvel-red) 1px, transparent 1px);
+  background-size: 8px 8px;
+  opacity: 0.1;
+}
+
+.halftone-bg {
+  background-image: 
+    radial-gradient(circle at 25% 25%, var(--marvel-red) 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, var(--marvel-blue) 1px, transparent 1px);
+  background-size: 12px 12px, 16px 16px;
+  opacity: 0.05;
+}
+
+/* Animations */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite alternate;
+}
+
+.animate-comic-zoom {
+  animation: comic-zoom 0.5s ease-out;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+@keyframes pulse-glow {
+  0% { 
+    box-shadow: 0 0 5px var(--marvel-red);
+  }
+  100% { 
+    box-shadow: 0 0 20px var(--marvel-red), 0 0 30px var(--marvel-red);
+  }
+}
+
+@keyframes comic-zoom {
+  0% { transform: scale(0.8) rotate(-5deg); opacity: 0; }
+  50% { transform: scale(1.1) rotate(2deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes twinkle {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-100px); }
+}
+
+@keyframes drift {
+  0%, 100% { 
+    transform: translateX(0px) translateY(0px) scale(1); 
+    opacity: 0.3;
+  }
+  25% { 
+    transform: translateX(20px) translateY(-10px) scale(1.1); 
+    opacity: 0.5;
+  }
+  50% { 
+    transform: translateX(-10px) translateY(-20px) scale(0.9); 
+    opacity: 0.4;
+  }
+  75% { 
+    transform: translateX(-20px) translateY(10px) scale(1.05); 
+    opacity: 0.6;
+  }
+}
+
+/* Portfolio 3D Effects */
+.portfolio-card-3d {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: all 0.3s ease-out;
+}
+
+.portfolio-card-3d:hover {
+  transform: translateY(-10px) rotateX(5deg) rotateY(2deg);
+}
+
+.portfolio-card-featured:hover {
+  transform: translateY(-15px) rotateY(5deg) scale(1.02);
+  box-shadow: 
+    0 20px 40px rgba(0, 123, 255, 0.3),
+    0 30px 60px rgba(123, 31, 162, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.card-inner {
+  transform-style: preserve-3d;
+  transition: all 0.4s ease-out;
+}
+
+.card-glow-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-glow-effect::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(0, 123, 255, 0.1), transparent);
+  transform: rotate(45deg);
+  transition: all 0.5s ease;
+  opacity: 0;
+}
+
+.card-glow-effect:hover::before {
+  opacity: 1;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.tech-tag-hover {
+  transition: all 0.2s ease;
+}
+
+.tech-tag-hover:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.action-button-3d {
+  transform-style: preserve-3d;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.action-button-3d:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 20px rgba(0, 123, 255, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.action-button-3d:active {
+  transform: translateY(1px);
+  box-shadow: 
+    0 2px 10px rgba(0, 123, 255, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.floating-elements {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  25% { transform: translateY(-10px) rotate(1deg); }
+  50% { transform: translateY(-20px) rotate(0deg); }
+  75% { transform: translateY(-10px) rotate(-1deg); }
+}
+
+.parallax-layer {
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Enhanced portfolio background visibility */
+.portfolio-container {
+  background:
+    /* Darker comic sky - easier on eyes */
+    linear-gradient(135deg, #1e40af 0%, #3b82f6 25%, #1e3a8a 50%, #1e293b 75%, #0f172a 100%),
+    /* City skyline silhouette at bottom */
+    linear-gradient(to bottom, transparent 0%, transparent 60%, #0f172a 60%, #020617 100%),
+    /* Spider-verse style city glow - subtle */
+    radial-gradient(ellipse at 20% 80%, rgba(59, 130, 246, 0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 85%, rgba(14, 165, 233, 0.15) 0%, transparent 45%);
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  min-height: 100vh;
+  position: relative;
+  z-index: 0;
+}
+
+/* Add comic-style city buildings overlay with higher z-index */
+.portfolio-container::before {
+  content: '';
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 35%;
+  background: 
+    /* Building silhouettes - more defined */
+    linear-gradient(to top, #0f172a 0%, #1e293b 50%, transparent 100%),
+    /* Building shapes using CSS shapes - more visible */
+    radial-gradient(ellipse 80px 220px at 8% 100%, #0f172a 0%, transparent 80%),
+    radial-gradient(ellipse 100px 280px at 22% 100%, #1e293b 0%, transparent 80%),
+    radial-gradient(ellipse 60px 180px at 35% 100%, #0f172a 0%, transparent 80%),
+    radial-gradient(ellipse 120px 320px at 50% 100%, #1e293b 0%, transparent 80%),
+    radial-gradient(ellipse 90px 240px at 65% 100%, #0f172a 0%, transparent 80%),
+    radial-gradient(ellipse 110px 300px at 80% 100%, #1e293b 0%, transparent 80%),
+    radial-gradient(ellipse 70px 200px at 95% 100%, #0f172a 0%, transparent 80%);
+  background-size: 100% 100%, 120px 350px, 150px 400px, 100px 300px, 180px 450px, 130px 350px, 160px 400px, 110px 320px;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Add comic-style window lights with higher z-index */
+.portfolio-container::after {
+  content: '';
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 35%;
+  background-image: 
+    /* Window lights scattered across buildings - more visible */
+    radial-gradient(3px 3px at 10% 75%, #fbbf24, transparent),
+    radial-gradient(2px 2px at 12% 60%, #60a5fa, transparent),
+    radial-gradient(3px 3px at 25% 70%, #fbbf24, transparent),
+    radial-gradient(2px 2px at 28% 55%, #60a5fa, transparent),
+    radial-gradient(3px 3px at 38% 65%, #fbbf24, transparent),
+    radial-gradient(2px 2px at 42% 50%, #60a5fa, transparent),
+    radial-gradient(3px 3px at 52% 75%, #fbbf24, transparent),
+    radial-gradient(2px 2px at 55% 60%, #60a5fa, transparent),
+    radial-gradient(3px 3px at 67% 70%, #fbbf24, transparent),
+    radial-gradient(2px 2px at 70% 55%, #60a5fa, transparent),
+    radial-gradient(3px 3px at 82% 65%, #fbbf24, transparent),
+    radial-gradient(2px 2px at 85% 50%, #60a5fa, transparent),
+    radial-gradient(3px 3px at 97% 75%, #fbbf24, transparent);
+  background-repeat: no-repeat;
+  animation: cityLights 3s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 4;
+}
+
+@keyframes cityLights {
+  0% { opacity: 0.7; }
+  50% { opacity: 1; }
+  100% { opacity: 0.8; }
+}
+
+/* Floating Cards Styles */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.floating-card {
+  transform-style: preserve-3d;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.floating-card:hover {
+  transform: translateY(-10px) rotateX(5deg);
+}
+
+.floating-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    rgba(34, 197, 255, 0.1) 0%, 
+    rgba(59, 130, 246, 0.1) 50%, 
+    rgba(147, 51, 234, 0.1) 100%);
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.floating-card:hover::before {
+  opacity: 1;
+}
+
+/* Floating animation for cards */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotateZ(0deg);
+  }
+  33% {
+    transform: translateY(-10px) rotateZ(1deg);
+  }
+  66% {
+    transform: translateY(-5px) rotateZ(-1deg);
+  }
+}
+
+.floating-card {
+  animation: float 6s ease-in-out infinite;
+}
+
+.floating-card:nth-child(odd) {
+  animation-delay: -2s;
+}
+
+.floating-card:nth-child(even) {
+  animation-delay: -4s;
+}
+
+/* Glowing effect for active cards */
+.card-glow-effect {
+  position: relative;
+}
+
+.card-glow-effect::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    rgba(34, 197, 255, 0.4), 
+    rgba(59, 130, 246, 0.4), 
+    rgba(147, 51, 234, 0.4),
+    rgba(34, 197, 255, 0.4));
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  filter: blur(10px);
+  transition: opacity 0.3s ease;
+  animation: glow-rotate 3s linear infinite;
+}
+
+.card-glow-effect:hover::after {
+  opacity: 1;
+}
+
+@keyframes glow-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 3D Card Effect */
+.portfolio-card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.portfolio-card-3d:hover {
+  transform: rotateY(5deg) rotateX(5deg) translateZ(50px);
+}
+
+/* Smooth slide transitions */
+.slide-transition {
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Enhanced depth effect */
+.depth-effect {
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.3),
+    0 20px 40px rgba(34, 197, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Dr. Strange Portal Effects */
+.mystical-portal {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.portal-ring {
+  position: absolute;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.7;
+}
+
+.portal-ring-1 {
+  width: 400px;
+  height: 400px;
+  background: conic-gradient(from 0deg, 
+    transparent, 
+    rgba(255, 165, 0, 0.8), 
+    rgba(255, 69, 0, 0.6), 
+    transparent, 
+    rgba(255, 140, 0, 0.4), 
+    transparent);
+  animation: portalRotate 8s linear infinite;
+  filter: blur(1px);
+}
+
+.portal-ring-2 {
+  width: 350px;
+  height: 350px;
+  background: conic-gradient(from 45deg, 
+    transparent, 
+    rgba(255, 215, 0, 0.6), 
+    rgba(255, 165, 0, 0.8), 
+    transparent, 
+    rgba(255, 69, 0, 0.5), 
+    transparent);
+  animation: portalRotate 6s linear infinite reverse;
+  filter: blur(1px);
+}
+
+.portal-ring-3 {
+  width: 300px;
+  height: 300px;
+  background: conic-gradient(from 90deg, 
+    transparent, 
+    rgba(255, 140, 0, 0.4), 
+    rgba(255, 215, 0, 0.7), 
+    transparent, 
+    rgba(255, 165, 0, 0.6), 
+    transparent);
+  animation: portalRotate 10s linear infinite;
+  filter: blur(1.5px);
+}
+
+.portal-ring-4 {
+  width: 250px;
+  height: 250px;
+  background: conic-gradient(from 135deg, 
+    transparent, 
+    rgba(255, 69, 0, 0.3), 
+    rgba(255, 140, 0, 0.5), 
+    transparent, 
+    rgba(255, 215, 0, 0.4), 
+    transparent);
+  animation: portalRotate 12s linear infinite reverse;
+  filter: blur(2px);
+}
+
+.portal-center {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, 
+    rgba(255, 215, 0, 0.3) 0%, 
+    rgba(255, 165, 0, 0.2) 30%, 
+    rgba(255, 69, 0, 0.1) 60%, 
+    transparent 100%);
+  border-radius: 50%;
+  animation: portalPulse 3s ease-in-out infinite;
+  filter: blur(3px);
+}
+
+.mystical-sparks {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.spark {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, rgba(255, 215, 0, 1) 0%, transparent 70%);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0 0;
+  animation: sparkFloat 4s ease-in-out infinite;
+}
+
+.spark-1 { transform: translate(-50%, -50%) rotate(0deg); animation-delay: 0s; }
+.spark-2 { transform: translate(-50%, -50%) rotate(30deg); animation-delay: -0.3s; }
+.spark-3 { transform: translate(-50%, -50%) rotate(60deg); animation-delay: -0.6s; }
+.spark-4 { transform: translate(-50%, -50%) rotate(90deg); animation-delay: -0.9s; }
+.spark-5 { transform: translate(-50%, -50%) rotate(120deg); animation-delay: -1.2s; }
+.spark-6 { transform: translate(-50%, -50%) rotate(150deg); animation-delay: -1.5s; }
+.spark-7 { transform: translate(-50%, -50%) rotate(180deg); animation-delay: -1.8s; }
+.spark-8 { transform: translate(-50%, -50%) rotate(210deg); animation-delay: -2.1s; }
+.spark-9 { transform: translate(-50%, -50%) rotate(240deg); animation-delay: -2.4s; }
+.spark-10 { transform: translate(-50%, -50%) rotate(270deg); animation-delay: -2.7s; }
+.spark-11 { transform: translate(-50%, -50%) rotate(300deg); animation-delay: -3.0s; }
+.spark-12 { transform: translate(-50%, -50%) rotate(330deg); animation-delay: -3.3s; }
+
+@keyframes portalRotate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes portalPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@keyframes sparkFloat {
+  0%, 100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--rotation, 0deg)) translateX(150px) scale(0.5);
+  }
+  25% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(var(--rotation, 0deg)) translateX(200px) scale(1);
+  }
+  75% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) rotate(var(--rotation, 0deg)) translateX(180px) scale(0.8);
+  }
+}
+
+/* Enhanced portal visibility on different screen sizes */
+@media (max-width: 768px) {
+  .mystical-portal {
+    width: 400px;
+    height: 400px;
+  }
+  
+  .portal-ring-1 { width: 300px; height: 300px; }
+  .portal-ring-2 { width: 260px; height: 260px; }
+  .portal-ring-3 { width: 220px; height: 220px; }
+  .portal-ring-4 { width: 180px; height: 180px; }
+  .portal-center { width: 150px; height: 150px; }
+}

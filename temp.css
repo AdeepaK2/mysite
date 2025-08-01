@@ -1,0 +1,12 @@
+/* Enhanced portfolio background visibility */
+.portfolio-container {
+  background: 
+    /* Dark overlay for better text contrast */
+    linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)),
+    /* Cosmic background effects */
+    radial-gradient(ellipse at 20% 50%, rgba(59, 130, 246, 0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(14, 165, 233, 0.2) 0%, transparent 50%),
+    linear-gradient(135deg, #1a1a2e 0%, #1e3a8a 25%, #1e40af 50%, #1d4ed8 75%, #2563eb 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
