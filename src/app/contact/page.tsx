@@ -111,10 +111,10 @@ export default function Contact() {
   ]
 
   return (
-    <main className="min-h-screen pt-16 bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900">
+    <main className="min-h-screen pt-16 bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 overflow-x-hidden">
       <Navbar />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-8 sm:py-16">
         {/* Minimal Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -127,22 +127,22 @@ export default function Contact() {
           </h1>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto">
           {/* Contact Information */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="space-y-8"
+            className="space-y-6 lg:space-y-8 order-2 lg:order-1"
           >
-            <div className="comic-panel p-8">
-              <h2 className="text-3xl font-bold text-white mb-6">Get in Touch</h2>
-              <p className="text-gray-300 mb-8">
+            <div className="comic-panel p-4 sm:p-6 lg:p-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 sm:mb-6">Get in Touch</h2>
+              <p className="text-gray-300 mb-6 sm:mb-8 text-sm sm:text-base">
                 I'm always excited to work on new projects and collaborate with amazing people. 
                 Feel free to reach out through any of these channels!
               </p>
 
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 {contactInfo.map((contact, index) => (
                   <motion.a
                     key={contact.label}
@@ -152,15 +152,15 @@ export default function Contact() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.4 + index * 0.1, duration: 0.6 }}
-                    whileHover={{ scale: 1.05, x: 10 }}
-                    className="flex items-center p-4 bg-gray-800/50 rounded-lg border border-gray-700 hover:border-cyan-500/50 transition-all duration-300 group"
+                    whileHover={{ scale: 1.02 }}
+                    className="flex items-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-gray-700 hover:border-cyan-500/50 transition-all duration-300 group min-w-0"
                   >
-                    <div className={`p-3 rounded-lg bg-gray-700/50 ${contact.color} mr-4 group-hover:scale-110 transition-transform duration-300`}>
-                      <contact.icon className="w-6 h-6" />
+                    <div className={`p-2 sm:p-3 rounded-lg bg-gray-700/50 ${contact.color} mr-3 sm:mr-4 group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
+                      <contact.icon className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>
-                    <div>
-                      <div className="text-sm text-gray-400">{contact.label}</div>
-                      <div className="text-white font-medium">{contact.value}</div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-xs sm:text-sm text-gray-400">{contact.label}</div>
+                      <div className="text-white font-medium text-sm sm:text-base truncate">{contact.value}</div>
                     </div>
                   </motion.a>
                 ))}
@@ -171,13 +171,13 @@ export default function Contact() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8, duration: 0.6 }}
-                className="mt-8 p-4 bg-gray-800/30 rounded-lg border border-gray-700"
+                className="mt-6 sm:mt-8 p-3 sm:p-4 bg-gray-800/30 rounded-lg border border-gray-700"
               >
                 <div className="flex items-center">
-                  <MapPin className="w-5 h-5 text-red-400 mr-3" />
+                  <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-red-400 mr-2 sm:mr-3 flex-shrink-0" />
                   <div>
-                    <div className="text-sm text-gray-400">Location</div>
-                    <div className="text-white">Sri Lanka</div>
+                    <div className="text-xs sm:text-sm text-gray-400">Location</div>
+                    <div className="text-white text-sm sm:text-base">Sri Lanka</div>
                   </div>
                 </div>
               </motion.div>
@@ -189,10 +189,11 @@ export default function Contact() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
+            className="order-1 lg:order-2"
           >
-            <div className="comic-panel p-8">
-              <h2 className="text-3xl font-bold text-white mb-6 flex items-center">
-                <MessageCircle className="w-8 h-8 text-cyan-400 mr-3" />
+            <div className="comic-panel p-4 sm:p-6 lg:p-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 sm:mb-6 flex items-center">
+                <MessageCircle className="w-6 h-6 sm:w-8 sm:h-8 text-cyan-400 mr-2 sm:mr-3" />
                 Send Message
               </h2>
 
@@ -200,7 +201,7 @@ export default function Contact() {
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`p-4 rounded-lg mb-6 ${
+                  className={`p-3 sm:p-4 rounded-lg mb-4 sm:mb-6 text-sm sm:text-base ${
                     submitStatus.type === 'success'
                       ? 'bg-green-500/20 border border-green-500/50 text-green-300'
                       : 'bg-red-500/20 border border-red-500/50 text-red-300'
@@ -210,8 +211,8 @@ export default function Contact() {
                 </motion.div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
+              <form onSubmit={handleSubmit} className="space-y-4 lg:space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
                       Name *
@@ -223,7 +224,7 @@ export default function Contact() {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-white placeholder-gray-400 transition-all duration-300"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-white placeholder-gray-400 transition-all duration-300 text-sm sm:text-base"
                       placeholder="Your name"
                     />
                   </div>
@@ -238,7 +239,7 @@ export default function Contact() {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-white placeholder-gray-400 transition-all duration-300"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-white placeholder-gray-400 transition-all duration-300 text-sm sm:text-base"
                       placeholder="your.email@example.com"
                     />
                   </div>
@@ -254,7 +255,7 @@ export default function Contact() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-white placeholder-gray-400 transition-all duration-300"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-white placeholder-gray-400 transition-all duration-300 text-sm sm:text-base"
                     placeholder="Your phone number"
                   />
                 </div>
@@ -270,7 +271,7 @@ export default function Contact() {
                     value={formData.subject}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-white placeholder-gray-400 transition-all duration-300"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-white placeholder-gray-400 transition-all duration-300 text-sm sm:text-base"
                     placeholder="What's this about?"
                   />
                 </div>
@@ -285,8 +286,8 @@ export default function Contact() {
                     value={formData.message}
                     onChange={handleInputChange}
                     required
-                    rows={6}
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-white placeholder-gray-400 transition-all duration-300 resize-vertical"
+                    rows={4}
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-white placeholder-gray-400 transition-all duration-300 resize-vertical text-sm sm:text-base"
                     placeholder="Tell me about your project or idea..."
                   />
                 </div>
@@ -296,7 +297,7 @@ export default function Contact() {
                   disabled={isSubmitting}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-4 px-6 rounded-lg font-semibold text-lg hover:from-cyan-600 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center"
+                  className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-3 sm:py-4 px-4 sm:px-6 rounded-lg font-semibold text-base sm:text-lg hover:from-cyan-600 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center"
                 >
                   {isSubmitting ? (
                     <>

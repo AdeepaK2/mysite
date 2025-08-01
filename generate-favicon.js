@@ -1,4 +1,8 @@
+import fs from 'fs'
+import sharp from 'sharp'
 
+// Simple SVG for favicon
+const faviconSVG = `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
   <defs>
     <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -11,3 +15,9 @@
   <text x="18" y="22" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">K</text>
   <circle cx="16" cy="26" r="1" fill="white"/>
 </svg>
+`
+
+// Write SVG to file
+fs.writeFileSync('favicon-temp.svg', faviconSVG)
+
+console.log('Favicon SVG created successfully!')

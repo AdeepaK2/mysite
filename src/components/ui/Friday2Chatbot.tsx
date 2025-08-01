@@ -324,18 +324,18 @@ export default function Friday2Chatbot() {
             }}
             exit={{ opacity: 0, scale: 0.8, y: 100 }}
             transition={{ duration: 0.3 }}
-            className={`fixed z-50 bg-gradient-to-br from-gray-900/95 via-gray-800/95 to-gray-900/95 backdrop-blur-lg border border-gray-700/50 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 ${
+            className={`fixed z-50 bg-gradient-to-br from-gray-900/95 via-gray-800/95 to-gray-900/95 backdrop-blur-lg border border-gray-700/50 rounded-2xl shadow-2xl transition-all duration-300 flex flex-col ${
               isMinimized 
                 ? 'bottom-4 right-4 w-80 h-16' 
-                : 'bottom-4 right-4 w-80 sm:w-96 h-[500px] sm:h-[600px] max-h-[80vh]'
+                : 'bottom-4 right-4 w-80 sm:w-96 h-[500px] sm:h-[600px] max-h-[calc(100vh-2rem)]'
             }`}
             style={{
               maxWidth: 'calc(100vw - 2rem)',
               maxHeight: 'calc(100vh - 2rem)',
             }}
           >
-            {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-gray-700/50 bg-gradient-to-r from-blue-600/20 to-cyan-600/20">
+            {/* Header - Fixed position */}
+            <div className="flex items-center justify-between p-3 border-b border-gray-700/50 bg-gradient-to-r from-blue-600/20 to-cyan-600/20 flex-shrink-0 h-16 min-h-16">
               <div className="flex items-center space-x-3 min-w-0 flex-1">
                 <div className="relative flex-shrink-0">
                   <img 
@@ -350,17 +350,17 @@ export default function Friday2Chatbot() {
                   <Bot className="w-8 h-8 text-cyan-400 hidden" />
                   <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-gray-900"></div>
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <h3 className="font-bold text-white text-sm truncate">Friday 2.0</h3>
                   {!isMinimized && (
-                    <p className="text-xs text-gray-400">AI Assistant</p>
+                    <p className="text-xs text-gray-400 truncate">AI Assistant</p>
                   )}
                 </div>
               </div>
               <div className="flex items-center space-x-1 flex-shrink-0">
                 <button
                   onClick={() => setIsMinimized(!isMinimized)}
-                  className="p-2 hover:bg-gray-700/50 rounded-lg transition-colors duration-200"
+                  className="p-2 hover:bg-gray-700/50 rounded-lg transition-colors duration-200 flex-shrink-0"
                   title={isMinimized ? "Maximize" : "Minimize"}
                 >
                   {isMinimized ? (
@@ -371,7 +371,7 @@ export default function Friday2Chatbot() {
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-2 hover:bg-gray-700/50 rounded-lg transition-colors duration-200"
+                  className="p-2 hover:bg-gray-700/50 rounded-lg transition-colors duration-200 flex-shrink-0"
                   title="Close"
                 >
                   <X className="w-4 h-4 text-gray-400" />
@@ -382,7 +382,7 @@ export default function Friday2Chatbot() {
             {!isMinimized && (
               <>
                 {/* Messages */}
-                <div className="flex-1 p-3 space-y-3 overflow-y-auto" style={{ height: 'calc(100% - 8rem)' }}>
+                <div className="flex-1 p-3 space-y-3 overflow-y-auto min-h-0" style={{ maxHeight: 'calc(100% - 8rem)' }}>
                   {messages.map((message) => (
                     <motion.div
                       key={message.id}
@@ -464,8 +464,8 @@ export default function Friday2Chatbot() {
                 </div>
 
                 {/* Input */}
-                <div className="p-3 border-t border-gray-700/50">
-                  <div className="flex items-center space-x-2">
+                <div className="p-3 border-t border-gray-700/50 flex-shrink-0 h-16 min-h-16 flex items-center">
+                  <div className="flex items-center space-x-2 w-full">
                     <input
                       ref={inputRef}
                       type="text"

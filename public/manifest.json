@@ -1,0 +1,34 @@
+{
+  "name": "Adeepa Kularathna - Full Stack Developer",
+  "short_name": "Adeepa K",
+  "description": "Adeepa Kularathna (Adeepa K) - Full Stack Developer & Software Engineer Portfolio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#111827",
+  "theme_color": "#22d3ee",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.svg", 
+      "sizes": "180x180",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["portfolio", "developer", "technology"],
+  "lang": "en",
+  "scope": "/",
+  "screenshots": [
+    {
+      "src": "/image/mainimage2.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "label": "Adeepa Kularathna Portfolio Homepage"
+    }
+  ]
+}

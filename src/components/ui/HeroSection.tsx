@@ -42,7 +42,7 @@ export default function HeroSection() {
             >
               <span className="text-white block mb-2">Hello, I'm</span>
               <div className="block">
-                <span className="text-white">Adeep</span>
+                <span className="text-white">Adeepa</span>
                 <motion.span 
                   className="text-red-500"
                   animate={{ 

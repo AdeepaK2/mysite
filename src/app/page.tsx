@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect, useRef } from 'react'
+import { motion, AnimatePresence, PanInfo } from 'framer-motion'
 import { ExternalLink, Github, Eye, Star, ArrowRight, Mail, Phone, MapPin, Linkedin, Twitter, Instagram } from 'lucide-react'
 import HeroSection from '@/components/ui/HeroSection'
 import Friday2Chatbot from '@/components/ui/Friday2Chatbot'
@@ -37,28 +37,42 @@ export default function Home() {
   const [projects, setProjects] = useState<Project[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
+  const constraintsRef = useRef(null)
 
   useEffect(() => {
     fetchProjects()
   }, [])
 
   useEffect(() => {
-    if (projects.length > 0) {
+    if (projects.length > 0 && !isDragging) {
       const interval = setInterval(() => {
-        setCurrentSlide(prev => (prev + 1) % Math.min(projects.length, 6))
+        setCurrentSlide(prev => (prev + 1) % projects.length)
       }, 4000) // Auto slide every 4 seconds
 
       return () => clearInterval(interval)
     }
-  }, [projects.length])
+  }, [projects.length, isDragging])
 
   // Navigation handlers
   const goToNextSlide = () => {
-    setCurrentSlide(prev => (prev + 1) % Math.min(projects.length, 6))
+    setCurrentSlide(prev => (prev + 1) % projects.length)
   }
 
   const goToPrevSlide = () => {
-    setCurrentSlide(prev => (prev - 1 + Math.min(projects.length, 6)) % Math.min(projects.length, 6))
+    setCurrentSlide(prev => (prev - 1 + projects.length) % projects.length)
+  }
+
+  // Handle swipe gestures
+  const handleDragEnd = (event: any, info: PanInfo) => {
+    setIsDragging(false)
+    const threshold = typeof window !== 'undefined' && window.innerWidth < 768 ? 30 : 50 // Lower threshold for mobile
+    
+    if (info.offset.x > threshold) {
+      goToPrevSlide()
+    } else if (info.offset.x < -threshold) {
+      goToNextSlide()
+    }
   }
 
   const fetchProjects = async () => {
@@ -89,7 +103,7 @@ export default function Home() {
           return a.title.localeCompare(b.title)
         })
         
-        setProjects(sortedProjects.slice(0, 6)) // Show only top 6 projects
+        setProjects(sortedProjects) // Show all projects instead of limiting to 6
       }
     } catch (error) {
       console.error('Error fetching projects:', error)
@@ -119,7 +133,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-blue-900/10 to-purple-900/10"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_70%)]"></div>
         
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-2 sm:px-4 md:px-4 relative z-10 overflow-hidden">
           {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -153,11 +167,14 @@ export default function Home() {
 
           {/* Floating Projects Carousel */}
           {!isLoading && projects.length > 0 && (
-            <div className="relative projects-carousel-container">
-              {/* Left Click Area */}
+            <div className="relative projects-carousel-container max-w-full overflow-hidden px-2 sm:px-4 md:px-0">
+              {/* Mobile-first container with proper boundaries */}
+              <div className="w-full max-w-screen-sm sm:max-w-screen-md md:max-w-none mx-auto">
+              
+              {/* Desktop Navigation Areas */}
               <button
                 onClick={goToPrevSlide}
-                className="absolute left-0 top-0 w-1/3 h-full z-40 bg-transparent hover:bg-gradient-to-r hover:from-cyan-500/10 hover:to-transparent transition-all duration-300 flex items-center justify-start pl-4 group"
+                className="absolute left-0 top-0 w-1/3 h-full z-40 bg-transparent hover:bg-gradient-to-r hover:from-cyan-500/10 hover:to-transparent transition-all duration-300 items-center justify-start pl-4 group hidden md:flex"
                 aria-label="Previous project"
               >
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-cyan-500/20 rounded-full p-2 backdrop-blur-sm border border-cyan-500/30">
@@ -167,21 +184,33 @@ export default function Home() {
                 </div>
               </button>
 
-              {/* Right Click Area */}
               <button
                 onClick={goToNextSlide}
-                className="absolute right-0 top-0 w-1/3 h-full z-40 bg-transparent hover:bg-gradient-to-l hover:from-cyan-500/10 hover:to-transparent transition-all duration-300 flex items-center justify-end pr-4 group"
+                className="absolute right-0 top-0 w-1/3 h-full z-40 bg-transparent hover:bg-gradient-to-l hover:from-cyan-500/10 hover:to-transparent transition-all duration-300 items-center justify-end pr-4 group hidden md:flex"
                 aria-label="Next project"
               >
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-cyan-500/20 rounded-full p-2 backdrop-blur-sm border border-cyan-500/30">
                   <svg className="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
-                  </div>
+                </div>
               </button>
 
-              {/* Main Floating Cards Container */}
-              <div className="relative h-[300px] md:h-[350px] perspective-1000 z-10">
+              {/* Main Floating Cards Container with Swipe Support */}
+              <motion.div 
+                ref={constraintsRef}
+                className="relative h-[350px] md:h-[400px] perspective-1000 z-10 overflow-hidden mb-8 md:mb-4 touch-pan-x w-full max-w-full"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                onDragStart={() => setIsDragging(true)}
+                onDragEnd={handleDragEnd}
+                dragElastic={0.2}
+                whileTap={{ cursor: "grabbing" }}
+                style={{ 
+                  cursor: isDragging ? "grabbing" : "grab",
+                  touchAction: "pan-x"
+                }}
+              >
                 <AnimatePresence mode="wait">
                   {projects.map((project, index) => {
                     const isActive = index === currentSlide
@@ -238,18 +267,36 @@ export default function Home() {
                       y = 30
                     }
 
+                    // Mobile adjustments - keep cards within viewport
+                    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+                      if (isNext || isPrev) {
+                        scale = 0.7
+                        opacity = 0.6
+                        x = isNext ? 100 : -100  // Reduced from 150 to 100
+                        y = 20
+                        rotateY = isNext ? -10 : 10  // Reduced rotation
+                      } else if (isNext2 || isPrev2) {
+                        scale = 0.5
+                        opacity = 0.2
+                        x = isNext2 ? 180 : -180  // Reduced from 280 to 180
+                        y = 40
+                        rotateY = isNext2 ? -15 : 15  // Reduced rotation
+                      }
+                    }
+
                     return (
                       <motion.div
                         key={project._id}
-                        className="absolute top-1/2 left-1/2 w-56 md:w-64"
+                        className="absolute top-1/2 left-1/2 w-56 sm:w-64 md:w-64"
                         style={{ 
                           transformOrigin: 'center center',
-                          zIndex 
+                          zIndex,
+                          pointerEvents: isDragging ? 'none' : 'auto'
                         }}
                         initial={false}
                         animate={{
-                          x: x - 128, // Offset for centering (half of card width)
-                          y: y - 150, // Offset for centering
+                          x: x - (typeof window !== 'undefined' && window.innerWidth < 640 ? 112 : 128), // Adjusted for smaller mobile cards
+                          y: y - 160,
                           scale,
                           opacity,
                           rotateY,
@@ -260,9 +307,10 @@ export default function Home() {
                           damping: 30,
                           duration: 0.8
                         }}
-                        whileHover={isActive ? { 
+                        viewport={{ once: true }}
+                        whileHover={isActive && !isDragging ? { 
                           scale: 1.05, 
-                          y: y - 160,
+                          y: y - 170,
                           transition: { duration: 0.3 }
                         } : {}}
                       >
@@ -387,15 +435,15 @@ export default function Home() {
                     )
                   })}
                 </AnimatePresence>
-              </div>
+              </motion.div>
 
               {/* Navigation Dots */}
-              <div className="flex justify-center mt-3 space-x-2">
+              <div className="flex justify-center mt-6 md:mt-3 space-x-2">
                 {projects.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentSlide(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    className={`w-3 h-3 md:w-2 md:h-2 rounded-full transition-all duration-300 ${
                       index === currentSlide 
                         ? 'bg-cyan-500 scale-125' 
                         : 'bg-gray-600 hover:bg-gray-500'
@@ -404,9 +452,26 @@ export default function Home() {
                 ))}
               </div>
 
+              {/* Mobile Swipe Indicator */}
+              <div className="md:hidden text-center mt-3">
+                <motion.p 
+                  className="text-cyan-400 text-sm font-medium"
+                  animate={{ 
+                    opacity: [0.7, 1, 0.7]
+                  }}
+                  transition={{ 
+                    duration: 2, 
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  👈 Swipe to explore all projects 👉
+                </motion.p>
+              </div>
+
               {/* View All Projects Button */}
               <motion.div
-                className="text-center mt-4"
+                className="text-center mt-6 md:mt-4 relative z-20"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -423,6 +488,7 @@ export default function Home() {
                   </motion.button>
                 </Link>
               </motion.div>
+              </div>
             </div>
           )}
 
