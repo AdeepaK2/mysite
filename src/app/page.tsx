@@ -674,9 +674,9 @@ export default function Home() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.5, duration: 0.8 }}
-                  className="flex justify-center overflow-hidden"
+                  className="flex justify-center"
                 >
-                  <div className="relative max-w-xs md:max-w-none">
+                  <div className="relative max-w-xs md:max-w-none md:ml-8 md:mt-8">
                     {/* Comic frame effect */}
                     <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl blur-xl"></div>
                     
@@ -723,7 +723,7 @@ export default function Home() {
 
                     {/* Periodic Comic Speech Bubble */}
                     <motion.div
-                      className="absolute top-2 left-2 md:-top-6 md:-left-8 z-20"
+                      className="absolute top-2 left-2 md:top-0 md:left-0 z-20"
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ 
                         opacity: [0, 0, 1, 1, 1, 1, 1, 0, 0],
