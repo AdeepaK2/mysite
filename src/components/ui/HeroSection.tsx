@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
+import Link from 'next/link'
 import ComicCharacter from './ComicCharacter'
 
 export default function HeroSection() {
@@ -29,7 +30,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-center lg:text-left w-full overflow-hidden"
+            className="text-center lg:text-left w-full"
           >
         
 
@@ -38,10 +39,10 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 text-center lg:text-left leading-tight break-words"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 text-center lg:text-left leading-tight break-words"
             >
               <span className="text-white block mb-1 sm:mb-2">Hello, I'm</span>
-              <div className="block break-words whitespace-nowrap">
+              <div className="block break-words">
                 <span className="text-white">Adeepa</span>
                 <motion.span 
                   className="text-red-500"
@@ -93,23 +94,27 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.2, duration: 0.6 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
             >
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="hero-button"
-              >
-                View My Work
-              </motion.button>
+              <Link href="/portafolio">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white rounded-lg font-bold text-sm sm:text-base transition-all duration-300 shadow-lg hover:shadow-red-500/25"
+                >
+                  View My Work
+                </motion.button>
+              </Link>
               
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 border-3 border-blue-500 text-blue-400 hover:bg-blue-500/20 rounded-lg font-bold uppercase tracking-wider transition-all duration-300"
-              >
-                Get In Touch
-              </motion.button>
+              <Link href="/contact">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-4 sm:px-6 py-2 sm:py-3 border-2 border-blue-500 text-blue-400 hover:bg-blue-500/20 rounded-lg font-bold text-sm sm:text-base transition-all duration-300"
+                >
+                  Get In Touch
+                </motion.button>
+              </Link>
             </motion.div>
           </motion.div>
 
