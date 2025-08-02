@@ -6,8 +6,8 @@ export default function PersonSchema() {
     "@type": "Person",
     "name": "Adeepa Kularathna",
     "alternateName": ["Adeepa K", "Adeepa"],
-    "url": "https://adeepak.vercel.app",
-    "image": "https://adeepak.vercel.app/image/mainimage2.png",
+    "url": "https://www.adeepa.tech",
+    "image": "https://www.adeepa.tech/image/mainimage2.png",
     "sameAs": [
       "https://github.com/AdeepaK2",
       "https://www.linkedin.com/in/adeepakularathna/"

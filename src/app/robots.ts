@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/admin/', '/api/'],
     },
-    sitemap: 'https://adeepak.vercel.app/sitemap.xml',
-    host: 'https://adeepak.vercel.app',
+    sitemap: 'https://www.adeepa.tech/sitemap.xml',
+    host: 'https://www.adeepa.tech',
   }
 }

@@ -6,14 +6,14 @@ export default function StructuredData() {
     "@graph": [
       {
         "@type": "Person",
-        "@id": "https://adeepak.vercel.app/#person",
+        "@id": "https://www.adeepa.tech/#person",
         "name": "Adeepa Kularathna",
         "alternateName": ["Adeepa K", "Adeepa"],
         "description": "Full Stack Developer & Software Engineer from Sri Lanka",
-        "url": "https://adeepak.vercel.app",
+        "url": "https://www.adeepa.tech",
         "image": {
           "@type": "ImageObject",
-          "url": "https://adeepak.vercel.app/image/mainimage2.png",
+          "url": "https://www.adeepa.tech/image/mainimage2.png",
           "width": 400,
           "height": 400
         },
@@ -60,19 +60,19 @@ export default function StructuredData() {
       },
       {
         "@type": "WebSite",
-        "@id": "https://adeepak.vercel.app/#website",
-        "url": "https://adeepak.vercel.app",
+        "@id": "https://www.adeepa.tech/#website",
+        "url": "https://www.adeepa.tech",
         "name": "Adeepa Kularathna Portfolio",
         "description": "Portfolio website of Adeepa Kularathna (Adeepa K), Full Stack Developer and Software Engineer",
         "publisher": {
-          "@id": "https://adeepak.vercel.app/#person"
+          "@id": "https://www.adeepa.tech/#person"
         },
         "potentialAction": [
           {
             "@type": "SearchAction",
             "target": {
               "@type": "EntryPoint",
-              "urlTemplate": "https://adeepak.vercel.app/?s={search_term_string}"
+              "urlTemplate": "https://www.adeepa.tech/?s={search_term_string}"
             },
             "query-input": "required name=search_term_string"
           }
@@ -80,30 +80,30 @@ export default function StructuredData() {
       },
       {
         "@type": "WebPage",
-        "@id": "https://adeepak.vercel.app/#webpage",
-        "url": "https://adeepak.vercel.app",
+        "@id": "https://www.adeepa.tech/#webpage",
+        "url": "https://www.adeepa.tech",
         "name": "Adeepa Kularathna - Full Stack Developer & Software Engineer",
         "isPartOf": {
-          "@id": "https://adeepak.vercel.app/#website"
+          "@id": "https://www.adeepa.tech/#website"
         },
         "about": {
-          "@id": "https://adeepak.vercel.app/#person"
+          "@id": "https://www.adeepa.tech/#person"
         },
         "description": "Adeepa Kularathna (Adeepa K) - Full Stack Developer & Software Engineer from Sri Lanka. University of Moratuwa student passionate about creating innovative web solutions.",
         "breadcrumb": {
-          "@id": "https://adeepak.vercel.app/#breadcrumb"
+          "@id": "https://www.adeepa.tech/#breadcrumb"
         },
         "inLanguage": "en-US"
       },
       {
         "@type": "BreadcrumbList",
-        "@id": "https://adeepak.vercel.app/#breadcrumb",
+        "@id": "https://www.adeepa.tech/#breadcrumb",
         "itemListElement": [
           {
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": "https://adeepak.vercel.app"
+            "item": "https://www.adeepa.tech"
           }
         ]
       }

@@ -57,19 +57,19 @@ export const metadata: Metadata = {
   authors: [
     { 
       name: "Adeepa Kularathna",
-      url: "https://adeepak.vercel.app"
+      url: "https://www.adeepa.tech"
     }
   ],
   creator: "Adeepa Kularathna",
   publisher: "Adeepa K",
-  metadataBase: new URL('https://adeepak.vercel.app'),
+  metadataBase: new URL('https://www.adeepa.tech'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://adeepak.vercel.app',
+    url: 'https://www.adeepa.tech',
     title: 'Adeepa Kularathna - Full Stack Developer & Software Engineer',
     description: 'Adeepa Kularathna (Adeepa K) - Full Stack Developer & Software Engineer from Sri Lanka. University of Moratuwa student passionate about creating innovative web solutions.',
     siteName: 'Adeepa K Portfolio',
