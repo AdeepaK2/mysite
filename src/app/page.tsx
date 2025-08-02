@@ -723,7 +723,7 @@ export default function Home() {
 
                     {/* Periodic Comic Speech Bubble */}
                     <motion.div
-                      className="absolute -top-8 -left-4 md:-top-12 md:-left-16 z-20"
+                      className="absolute top-2 left-2 md:-top-6 md:-left-8 z-20"
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ 
                         opacity: [0, 0, 1, 1, 1, 1, 1, 0, 0],
