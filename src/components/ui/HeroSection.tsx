@@ -41,7 +41,7 @@ export default function HeroSection() {
               className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 text-center lg:text-left leading-tight break-words"
             >
               <span className="text-white block mb-1 sm:mb-2">Hello, I'm</span>
-              <div className="block break-words whitespace-nowrap overflow-hidden">
+              <div className="block break-words whitespace-nowrap">
                 <span className="text-white">Adeepa</span>
                 <motion.span 
                   className="text-red-500"

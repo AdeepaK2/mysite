@@ -452,7 +452,7 @@ export default function AboutSection() {
               </motion.div>
             </motion.div>
 
-            {/* IEEE Student Branch & G17 */}
+            {/* IEEE Student Branch */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -462,7 +462,7 @@ export default function AboutSection() {
             >
               <div className="flex items-center mb-6">
                 <GraduationCap className="w-8 h-8 text-indigo-400 mr-3" />
-                <h4 className="text-2xl font-bold text-white">IEEE Student Branch & G17</h4>
+                <h4 className="text-2xl font-bold text-white">IEEE Student Branch</h4>
               </div>
               
               <div className="space-y-4">
@@ -480,13 +480,6 @@ export default function AboutSection() {
                     <span>Oct 2024 - Dec 2024</span>
                   </div>
                 </div>
-                <div className="border-l-4 border-green-500 pl-4">
-                  <p className="text-green-300 font-semibold">G17 University Ambassador for SDG 8</p>
-                  <div className="flex items-center text-gray-300 text-sm">
-                    <Calendar className="w-3 h-3 mr-2" />
-                    <span>May 2024 - May 2025</span>
-                  </div>
-                </div>
               </div>
 
               <motion.div
@@ -497,7 +490,45 @@ export default function AboutSection() {
                 transition={{ duration: 4, repeat: Infinity, delay: 2.5 }}
                 className="absolute -top-4 -left-4 bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-3 py-1 rounded-full font-bold text-xs transform -rotate-12 shadow-lg"
               >
-                LEADER!
+                IEEE!
+              </motion.div>
+            </motion.div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+            
+            {/* G17 University Ambassador */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 1.8 }}
+              viewport={{ once: true }}
+              className="comic-panel p-8 bg-gradient-to-br from-green-500/10 to-teal-500/10 backdrop-blur-sm relative"
+            >
+              <div className="flex items-center mb-6">
+                <MapPin className="w-8 h-8 text-green-400 mr-3" />
+                <h4 className="text-2xl font-bold text-white">G17 University Ambassador</h4>
+              </div>
+              
+              <div className="space-y-3">
+                <div className="border-l-4 border-green-500 pl-4">
+                  <p className="text-green-300 font-semibold">SDG 8 Ambassador</p>
+                  <div className="flex items-center text-gray-300 text-sm">
+                    <Calendar className="w-3 h-3 mr-2" />
+                    <span>May 2024 - May 2025</span>
+                  </div>
+                </div>
+              </div>
+
+              <motion.div
+                animate={{ 
+                  rotate: [0, 12, -12, 0],
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{ duration: 4, repeat: Infinity, delay: 3 }}
+                className="absolute -top-4 -right-4 bg-gradient-to-r from-green-500 to-teal-500 text-white px-3 py-1 rounded-full font-bold text-xs transform rotate-12 shadow-lg"
+              >
+                SDG 8!
               </motion.div>
             </motion.div>
           </div>

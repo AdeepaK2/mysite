@@ -96,16 +96,16 @@ export default function ComicCharacter() {
               repeatDelay: 3,
               ease: "easeInOut"
             }}
-            className="absolute -top-5 -left-10 bg-white text-black px-6 py-4 rounded-2xl shadow-2xl border-4 border-red-600 z-20 min-w-[280px]"
+            className="absolute -top-3 -left-2 md:-top-5 md:-left-10 bg-white text-black px-3 py-2 md:px-6 md:py-4 rounded-xl md:rounded-2xl shadow-2xl border-2 md:border-4 border-red-600 z-20 min-w-[200px] md:min-w-[280px] max-w-[250px] md:max-w-none"
           >
             <div className="text-center">
-              <div className="font-bold text-2xl text-red-600 comic-font">
+              <div className="font-bold text-sm md:text-2xl text-red-600 comic-font">
                 "And I... am Adeepa."
               </div>
             </div>
             {/* Speech bubble tail pointing to character */}
-            <div className="absolute bottom-[-12px] right-20 w-0 h-0 border-l-[12px] border-r-[12px] border-t-[12px] border-l-transparent border-r-transparent border-t-white"></div>
-            <div className="absolute bottom-[-16px] right-[76px] w-0 h-0 border-l-[16px] border-r-[16px] border-t-[16px] border-l-transparent border-r-transparent border-t-red-600"></div>
+            <div className="absolute bottom-[-8px] md:bottom-[-12px] right-12 md:right-20 w-0 h-0 border-l-[8px] md:border-l-[12px] border-r-[8px] md:border-r-[12px] border-t-[8px] md:border-t-[12px] border-l-transparent border-r-transparent border-t-white"></div>
+            <div className="absolute bottom-[-10px] md:bottom-[-16px] right-[44px] md:right-[76px] w-0 h-0 border-l-[10px] md:border-l-[16px] border-r-[10px] md:border-r-[16px] border-t-[10px] md:border-t-[16px] border-l-transparent border-r-transparent border-t-red-600"></div>
           </motion.div>
         </div>
       </motion.div>
