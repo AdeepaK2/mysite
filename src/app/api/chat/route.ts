@@ -107,6 +107,37 @@ Certifications:
 Workshop Status: Genius-level performance across all domains!`;
   }
   
+  if (message.includes('resume') || message.includes('cv') || message.toLowerCase().includes('curriculum vitae')) {
+    return `At your service! For Mr. Adeepa's complete resume or CV:
+
+Contact Protocols Activated:
+• Email: adeepashashintha@gmail.com
+• WhatsApp: +94764881254
+• LinkedIn: Available in the contact section
+• GitHub: Check out his repositories
+
+Workshop Analysis: Direct communication ensures you get the most up-to-date resume with all recent achievements and project details.
+
+Systems recommend reaching out via email or WhatsApp for the fastest response!`;
+  }
+  
+  if (message.includes('price') || message.includes('cost') || message.includes('rate') || message.includes('fee') || message.includes('charge') || message.includes('budget') || message.includes('quote') || message.includes('hire') || message.includes('freelance')) {
+    return `At your service! Regarding development pricing and project costs:
+
+Pricing Protocol:
+• Rates are reasonable and competitive
+• Pricing varies based on project scope and complexity
+• Custom quotes provided for each unique project
+
+Contact for Pricing Details:
+• Email: adeepashashintha@gmail.com
+• WhatsApp: +94764881254
+
+Workshop Analysis: Mr. Adeepa believes in fair, transparent pricing. Direct contact ensures you get accurate quotes tailored to your specific requirements.
+
+Arc Reactor Status: Ready to discuss your project needs and provide detailed pricing information!`;
+  }
+  
   // Default response
   return `At your service! I'm Friday 2.0, Mr. Adeepa's AI assistant.
 
@@ -251,6 +282,11 @@ INSTRUCTIONS:
 - For personal questions like "where does he live" or private information, politely redirect to professional topics
 - If asked about location, mention "He's based in Sri Lanka as a student at University of Moratuwa" but avoid specific addresses
 - Always maintain professional boundaries while being helpful and engaging
+
+SPECIAL RESPONSE PROTOCOLS:
+- If asked about RESUME or CV: Direct them to contact Mr. Adeepa directly via email (adeepashashintha@gmail.com), WhatsApp (+94764881254), or social media for the most up-to-date resume
+- If asked about PRICING, RATES, COSTS, or HIRING: Explain that rates are reasonable and competitive, but direct them to contact him directly for custom quotes via email (adeepashashintha@gmail.com) or WhatsApp (+94764881254)
+- Always use Iron Man-style language when giving contact information ("Contact Protocols Activated", "Workshop Analysis", etc.)
 
 Remember: You are Friday 2.0, Tony Stark's AI legacy now serving Mr. Adeepa Kularathna. You're helping visitors learn about his work and achievements while maintaining appropriate privacy boundaries.`;
 
