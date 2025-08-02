@@ -19,13 +19,17 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Adeepa Kularathna - Full Stack Developer & Software Engineer",
+    default: "Adeepa Kularathna",
     template: "%s | Adeepa K Portfolio"
   },
   description: "Adeepa Kularathna (Adeepa K) - Full Stack Developer & Software Engineer from Sri Lanka. Specializing in Next.js, React, TypeScript, Node.js, and modern web development. University of Moratuwa student passionate about creating innovative digital solutions.",
   keywords: [
     "Adeepa Kularathna",
     "Adeepa K", 
+    "Shashintha",
+    "Kularathna",
+    "GGAS",
+    
     "Adeepa",
     "Full Stack Developer",
     "Software Engineer",
