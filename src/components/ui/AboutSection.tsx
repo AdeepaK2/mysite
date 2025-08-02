@@ -286,6 +286,223 @@ export default function AboutSection() {
           </div>
         </motion.div>
 
+                {/* Volunteering Experience Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.8 }}
+          viewport={{ once: true }}
+          className="mt-20"
+        >
+          <div className="text-center mb-12">
+            <motion.h3
+              className="text-4xl md:text-5xl font-bold mb-4"
+              animate={{
+                textShadow: [
+                  "0 0 10px #10B981",
+                  "0 0 20px #10B981, 0 0 30px #10B981",
+                  "0 0 10px #10B981"
+                ]
+              }}
+              transition={{ duration: 3, repeat: Infinity }}
+            >
+              <span className="text-white">Volunteering </span>
+              <span className="text-green-500">Experience</span>
+            </motion.h3>
+            
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              transition={{ delay: 1.0, type: "spring", bounce: 0.5 }}
+              viewport={{ once: true }}
+              className="inline-block bg-gradient-to-r from-green-500 to-emerald-500 text-white px-6 py-3 rounded-full font-bold text-lg transform -rotate-2 shadow-lg"
+            >
+              COMMUNITY HERO ACTIVATED!
+            </motion.div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            {/* IEEE Robotic Automation Society */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 1.0 }}
+              viewport={{ once: true }}
+              className="comic-panel p-8 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 backdrop-blur-sm relative"
+            >
+              <div className="flex items-center mb-6">
+                <GraduationCap className="w-8 h-8 text-cyan-400 mr-3" />
+                <h4 className="text-2xl font-bold text-white">IEEE Robotic Automation Society, UoM</h4>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="border-l-4 border-cyan-500 pl-4">
+                  <p className="text-cyan-300 font-semibold">Design Committee Co-Lead</p>
+                  <div className="flex items-center text-gray-300 text-sm">
+                    <Calendar className="w-3 h-3 mr-2" />
+                    <span>Term 2024/2025</span>
+                  </div>
+                </div>
+                <div className="border-l-4 border-blue-500 pl-4">
+                  <p className="text-blue-300 font-semibold">Web Committee Lead</p>
+                  <div className="flex items-center text-gray-300 text-sm">
+                    <Calendar className="w-3 h-3 mr-2" />
+                    <span>Term 2024/2025</span>
+                  </div>
+                </div>
+                <div className="border-l-4 border-purple-500 pl-4">
+                  <p className="text-purple-300 font-semibold">Beyond the Pages 1.0: Co-Chair</p>
+                  <div className="flex items-center text-gray-300 text-sm">
+                    <Calendar className="w-3 h-3 mr-2" />
+                    <span>Mar 2025 - May 2025</span>
+                  </div>
+                </div>
+              </div>
+
+              <motion.div
+                animate={{ 
+                  rotate: [0, 15, -15, 0],
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{ duration: 4, repeat: Infinity, delay: 2 }}
+                className="absolute -top-4 -right-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-3 py-1 rounded-full font-bold text-xs transform rotate-12 shadow-lg"
+              >
+                ROBOTICS!
+              </motion.div>
+            </motion.div>
+
+            {/* IEEE Power & Energy Society */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 1.2 }}
+              viewport={{ once: true }}
+              className="comic-panel p-8 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 backdrop-blur-sm relative"
+            >
+              <div className="flex items-center mb-6">
+                <Briefcase className="w-8 h-8 text-yellow-400 mr-3" />
+                <h4 className="text-2xl font-bold text-white">IEEE Power & Energy Society, UoM</h4>
+              </div>
+              
+              <div className="space-y-3">
+                <div className="border-l-4 border-yellow-500 pl-4">
+                  <p className="text-yellow-300 font-semibold">Web Committee Member</p>
+                  <div className="flex items-center text-gray-300 text-sm">
+                    <Calendar className="w-3 h-3 mr-2" />
+                    <span>Term 2024/2025</span>
+                  </div>
+                </div>
+              </div>
+
+              <motion.div
+                animate={{ 
+                  y: [0, -10, 0],
+                  rotate: [0, 10, 0]
+                }}
+                transition={{ duration: 3, repeat: Infinity, delay: 1.5 }}
+                className="absolute -top-4 -left-4 bg-gradient-to-r from-yellow-500 to-orange-500 text-black px-3 py-1 rounded-full font-bold text-xs transform -rotate-12 shadow-lg"
+              >
+                ENERGY!
+              </motion.div>
+            </motion.div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+            
+            {/* Gavel Club */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 1.4 }}
+              viewport={{ once: true }}
+              className="comic-panel p-8 bg-gradient-to-br from-red-500/10 to-pink-500/10 backdrop-blur-sm relative"
+            >
+              <div className="flex items-center mb-6">
+                <User className="w-8 h-8 text-red-400 mr-3" />
+                <h4 className="text-2xl font-bold text-white">Gavel Club UoM</h4>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="border-l-4 border-red-500 pl-4">
+                  <p className="text-red-300 font-semibold">Assistant Online Media Coordinator</p>
+                  <div className="flex items-center text-gray-300 text-sm">
+                    <Calendar className="w-3 h-3 mr-2" />
+                    <span>Mar 2025 - Present</span>
+                  </div>
+                </div>
+                <div className="border-l-4 border-pink-500 pl-4">
+                  <p className="text-pink-300 font-semibold">Gavel Orientation 24: Co-Chair</p>
+                  <div className="flex items-center text-gray-300 text-sm">
+                    <Calendar className="w-3 h-3 mr-2" />
+                    <span>Apr 2024</span>
+                  </div>
+                </div>
+              </div>
+
+              <motion.div
+                animate={{ 
+                  rotate: [0, -10, 10, 0],
+                  scale: [1, 1.2, 1]
+                }}
+                transition={{ duration: 5, repeat: Infinity, delay: 3 }}
+                className="absolute -top-4 -right-4 bg-gradient-to-r from-red-500 to-pink-500 text-white px-3 py-1 rounded-full font-bold text-xs transform rotate-12 shadow-lg"
+              >
+                SPEAKING!
+              </motion.div>
+            </motion.div>
+
+            {/* IEEE Student Branch & G17 */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 1.6 }}
+              viewport={{ once: true }}
+              className="comic-panel p-8 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 backdrop-blur-sm relative"
+            >
+              <div className="flex items-center mb-6">
+                <GraduationCap className="w-8 h-8 text-indigo-400 mr-3" />
+                <h4 className="text-2xl font-bold text-white">IEEE Student Branch & G17</h4>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="border-l-4 border-indigo-500 pl-4">
+                  <p className="text-indigo-300 font-semibold">Design Committee Member</p>
+                  <div className="flex items-center text-gray-300 text-sm">
+                    <Calendar className="w-3 h-3 mr-2" />
+                    <span>Term 2023/2024</span>
+                  </div>
+                </div>
+                <div className="border-l-4 border-purple-500 pl-4">
+                  <p className="text-purple-300 font-semibold">MoraXtreme: Vice Chair</p>
+                  <div className="flex items-center text-gray-300 text-sm">
+                    <Calendar className="w-3 h-3 mr-2" />
+                    <span>Oct 2024 - Dec 2024</span>
+                  </div>
+                </div>
+                <div className="border-l-4 border-green-500 pl-4">
+                  <p className="text-green-300 font-semibold">G17 University Ambassador for SDG 8</p>
+                  <div className="flex items-center text-gray-300 text-sm">
+                    <Calendar className="w-3 h-3 mr-2" />
+                    <span>May 2024 - May 2025</span>
+                  </div>
+                </div>
+              </div>
+
+              <motion.div
+                animate={{ 
+                  y: [0, -12, 0],
+                  rotate: [0, -8, 0]
+                }}
+                transition={{ duration: 4, repeat: Infinity, delay: 2.5 }}
+                className="absolute -top-4 -left-4 bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-3 py-1 rounded-full font-bold text-xs transform -rotate-12 shadow-lg"
+              >
+                LEADER!
+              </motion.div>
+            </motion.div>
+          </div>
+        </motion.div>
+
         {/* Bottom floating elements */}
         <motion.div
           animate={{ 
