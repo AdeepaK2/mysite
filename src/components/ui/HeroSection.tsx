@@ -39,7 +39,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 text-center lg:text-left leading-tight break-words"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 text-center lg:text-left leading-tight break-words"
             >
               <span className="text-white block mb-1 sm:mb-2">Hello, I'm</span>
               <div className="block break-words">
