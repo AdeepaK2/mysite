@@ -1,19 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import connect from '@/lib/db'
 import Project from '@/models/Project'
-import { validateApiKey, apiResponses } from '@/lib/auth'
 
 // GET - Get all projects
 export async function GET(request: NextRequest) {
   try {
-    // Validate API key
-    if (!validateApiKey(request)) {
-      return NextResponse.json(
-        apiResponses.invalidApiKey,
-        { status: apiResponses.invalidApiKey.status }
-      );
-    }
-
     await connect()
     const projects = await Project.find({}).sort({ createdAt: -1 })
     
@@ -33,13 +24,6 @@ export async function GET(request: NextRequest) {
 // POST - Create new project  
 export async function POST(req: NextRequest) {
   try {
-    // Validate API key
-    if (!validateApiKey(req)) {
-      return NextResponse.json(
-        apiResponses.invalidApiKey,
-        { status: apiResponses.invalidApiKey.status }
-      );
-    }
     await connect()
     const body = await req.json()
     

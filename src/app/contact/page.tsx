@@ -40,6 +40,7 @@ export default function Contact() {
     setSubmitStatus({ type: null, message: '' })
 
     try {
+      // Save to database
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -49,12 +50,24 @@ export default function Contact() {
         body: JSON.stringify(formData),
       })
 
-      const data = await response.json()
+      // Send email notification
+      const mail_response = await fetch('/api/email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': process.env.NEXT_PUBLIC_X_API_KEY || '',
+        },
+        body: JSON.stringify(formData)
+      })
 
-      if (data.success) {
+      const data = await response.json()
+      const mailData = await mail_response.json()
+
+      // Check if both operations were successful
+      if (data.success && mail_response.ok) {
         setSubmitStatus({
           type: 'success',
-          message: data.message
+          message: 'Message sent successfully! We\'ll get back to you soon.'
         })
         setFormData({
           name: '',
@@ -66,7 +79,7 @@ export default function Contact() {
       } else {
         setSubmitStatus({
           type: 'error',
-          message: data.error || 'Failed to send message'
+          message: data.error || mailData.error || 'Failed to send message'
         })
       }
     } catch (error) {

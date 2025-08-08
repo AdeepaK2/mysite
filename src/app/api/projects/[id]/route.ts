@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import connect from '@/lib/db'
 import Project from '@/models/Project'
-import { validateApiKey, apiResponses } from '@/lib/auth'
 
 // GET - Get single project by ID
 export async function GET(
@@ -9,14 +8,6 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    // Validate API key
-    if (!validateApiKey(req)) {
-      return NextResponse.json(
-        apiResponses.invalidApiKey,
-        { status: apiResponses.invalidApiKey.status }
-      );
-    }
-
     // Await the params since it's now a Promise in Next.js 15+
     const resolvedParams = await params;
     
@@ -49,21 +40,6 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    // Validate API key
-    if (!validateApiKey(req)) {
-      return NextResponse.json(
-        apiResponses.invalidApiKey,
-        { status: apiResponses.invalidApiKey.status }
-      );
-    }
-    // Validate API key
-    if (!validateApiKey(req)) {
-      return NextResponse.json(
-        apiResponses.invalidApiKey,
-        { status: apiResponses.invalidApiKey.status }
-      );
-    }
-
     // Await the params since it's now a Promise in Next.js 15+
     const resolvedParams = await params;
 
@@ -132,14 +108,6 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    // Validate API key
-    if (!validateApiKey(req)) {
-      return NextResponse.json(
-        apiResponses.invalidApiKey,
-        { status: apiResponses.invalidApiKey.status }
-      );
-    }
-    
     // Await the params since it's now a Promise in Next.js 15+
     const resolvedParams = await params;
     

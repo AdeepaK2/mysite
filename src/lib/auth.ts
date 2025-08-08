@@ -25,6 +25,8 @@ export function requiresApiKey(pathname: string): boolean {
     '/api/auth',        // NextAuth routes
     '/api/admin',       // Admin routes (use admin auth instead)
     '/api/file/download', // File download route (images need to be publicly accessible)
+    '/api/projects',    // Projects API (used by admin, no API key needed)
+    '/api/contact',     // Contact API (used by admin, no API key needed)
   ];
   
   // Check if it's a public route
