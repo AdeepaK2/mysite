@@ -820,9 +820,7 @@ export default function Home() {
                   delay: 1.5
                 }}
               >
-                <div className="comic-bubble bg-cyan-400 text-black px-2 py-1 rounded-full text-xs font-bold">
-                  ZOOM! 🚀
-                </div>
+                
               </motion.div>
             </motion.div>
           </div>

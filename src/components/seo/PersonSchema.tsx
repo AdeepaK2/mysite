@@ -12,8 +12,8 @@ export default function PersonSchema() {
       "https://github.com/AdeepaK2",
       "https://www.linkedin.com/in/adeepakularathna/"
     ],
-    "jobTitle": "Full Stack Developer",
-    "description": "Full Stack Developer and Software Engineer specializing in modern web technologies",
+    "jobTitle": "Full Stack Developer & Business Analyst",
+    "description": "Full Stack Developer, Software Engineer and Business Analyst specializing in modern web technologies",
     "knowsAbout": [
       "JavaScript",
       "TypeScript", 
@@ -22,7 +22,8 @@ export default function PersonSchema() {
       "Node.js",
       "Python",
       "Web Development",
-      "Software Engineering"
+      "Software Engineering",
+      "Business Analysis"
     ],
     "alumniOf": {
       "@type": "EducationalOrganization",

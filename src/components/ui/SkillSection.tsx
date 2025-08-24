@@ -207,7 +207,7 @@ const SkillSection = () => {
             }}
           >
             <div className="comic-bubble bg-green-400 text-black px-2 py-1 rounded-full text-xs font-bold">
-              BUILD! 🚀
+              BUILD!
             </div>
           </motion.div>
         </div>

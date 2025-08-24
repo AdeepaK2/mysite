@@ -77,7 +77,7 @@ export default function HeroSection() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.9, duration: 0.6 }}
               >
-                🌟 Differently Abled • Accessibility Champion
+                 Differently Abled • Accessibility Champion
               </motion.p>
               <motion.p 
                 className="text-xs sm:text-sm md:text-base text-gray-400 max-w-lg mx-auto lg:mx-0 px-2 sm:px-0"

@@ -22,7 +22,7 @@ export default function StructuredData() {
           "https://www.linkedin.com/in/adeepakularathna/",
           "mailto:adeepashashintha@gmail.com"
         ],
-        "jobTitle": "Full Stack Developer",
+        "jobTitle": "Full Stack Developer & Business Analyst",
         "worksFor": {
           "@type": "EducationalOrganization",
           "name": "University of Moratuwa",
@@ -46,6 +46,7 @@ export default function StructuredData() {
         "knowsAbout": [
           "Web Development",
           "Software Engineering", 
+          "Business Analysis",
           "JavaScript",
           "TypeScript",
           "React",

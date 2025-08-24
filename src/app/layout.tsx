@@ -22,17 +22,21 @@ export const metadata: Metadata = {
     default: "Adeepa Kularathna",
     template: "%s | Adeepa K Portfolio"
   },
-  description: "Adeepa Kularathna (Adeepa K) - Full Stack Developer & Software Engineer from Sri Lanka. Specializing in Next.js, React, TypeScript, Node.js, and modern web development. University of Moratuwa student passionate about creating innovative digital solutions.",
+  description: "Adeepa Kularathna (Adeepa K) - Undergraduate of University of Moratuwa | BA,SE | Disabled ",
   keywords: [
     "Adeepa Kularathna",
     "Adeepa K", 
+    "ASK",
+    "Adeepa",
     "Shashintha",
     "Kularathna",
     "GGAS",
-    
+    "Adeep",
+    "Adee",
     "Adeepa",
     "Full Stack Developer",
     "Software Engineer",
+    "Business Analyst",
     "Web Developer",
     "React Developer",
     "Next.js Developer",
