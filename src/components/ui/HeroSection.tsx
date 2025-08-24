@@ -69,7 +69,7 @@ export default function HeroSection() {
               className="mb-6 sm:mb-8"
             >
               <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-2">
-                Developer and Designer
+                Developer | Buisness Analyst
               </p>
               <motion.p 
                 className="text-sm sm:text-base md:text-lg text-cyan-400 mb-3 sm:mb-4 font-medium"
